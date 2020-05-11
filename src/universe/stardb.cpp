@@ -6,10 +6,13 @@
  */
 
 #include "main/core.h"
+#include "universe/astro.h"
 #include "universe/object.h"
+#include "universe/startree.h"
 #include "universe/stardb.h"
 #include "universe/universe.h"
 
+using namespace ofs::astro;
 using namespace ofs::universe;
 
 bool StarCatalog::loadXHIPData(fs::path dataFolder)
@@ -165,7 +168,41 @@ bool StarCatalog::loadXHIPData(fs::path dataFolder)
 	return true;
 }
 
+void StarCatalog::initOctreeData(vector<CelestialStar*> stars)
+{
+	double absMag = convertAppToAbsMag(STARTREE_MAGNITUDE,
+			STARTREE_ROOTSIZE * sqrt(3.0));
+
+//	cout << "Star Tree: " << absMag << " magnitude" << endl;
+
+	starTree = new StarTree(vec3d_t(1000.0, 1000.0, 1000.0), absMag);
+	for (int idx = 0; idx < uStars.size(); idx++)
+		starTree->insert(*uStars[idx], STARTREE_ROOTSIZE);
+
+	cout << "Star Database has " << starTree->countNodes() << " nodes and "
+			  << starTree->countObjects() << " objects" << endl;
+}
+
 void StarCatalog::finish()
 {
+    cout << "Total star count: " << uStars.size() << endl;
 
+    initOctreeData(uStars);
+
+	// Initialize HIP star catalogue
+	int hip, maxhip = 0;
+	for (int idx = 0; idx < uStars.size(); idx++) {
+		hip = uStars[idx]->getIndex();
+		if (hip > maxhip)
+			maxhip = hip;
+	}
+
+	hipCatalogue = new CelestialStar*[maxhip];
+	for (int idx = 0; idx < maxhip; idx++)
+		hipCatalogue[idx] = nullptr;
+	for (int idx = 0; idx < uStars.size(); idx++) {
+		CelestialStar *star = uStars[idx];
+		hip = star->getIndex();
+		hipCatalogue[hip] = star;
+	}
 }
