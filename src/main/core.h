@@ -46,3 +46,6 @@ typedef glm::tquat<double> quatd_t;
 
 typedef glm::dmat3 mat3d_t;
 typedef glm::dmat4 mat4d_t;
+
+template <typename T> T square(T x) { return x * x; }
+template <typename T> T cube(T x)   { return x * x * x; }

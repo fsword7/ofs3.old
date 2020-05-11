@@ -9,6 +9,7 @@ set (ofs_cpp_srcs
 	universe/body.cpp
 	universe/star.cpp
 	universe/stardb.cpp
+	universe/startree.cpp
 	universe/surface.cpp
 	universe/universe.cpp
 )
@@ -24,6 +25,7 @@ set (ofs_h_srcs
 	universe/astro.h
 	universe/object.h
 	universe/stardb.h
+	universe/startree.h
 	universe/surface.h
 	universe/universe.h
 )
