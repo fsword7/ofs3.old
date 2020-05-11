@@ -4,6 +4,8 @@ set (ofs_cpp_srcs
 	universe/body.cpp
 	universe/star.cpp
 	universe/surface.cpp
+	util/fix128.cpp
+	util/tree.cpp
 )
 
 set (ofs_h_srcs
@@ -12,6 +14,8 @@ set (ofs_h_srcs
 	universe/object.h
 	universe/surface.h
 	util/color.h
+	util/fix128.h
+	util/tree.h
 )
 
 add_executable(ofs ${ofs_cpp_srcs} ${ofs_h_srcs})
