@@ -11,8 +11,13 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include "util/color.h"
+
+using namespace std;
+
+namespace fs = std::filesystem;
 
 // Math library package
 
@@ -41,6 +46,3 @@ typedef glm::tquat<double> quatd_t;
 
 typedef glm::dmat3 mat3d_t;
 typedef glm::dmat4 mat4d_t;
-
-
-using namespace std;
