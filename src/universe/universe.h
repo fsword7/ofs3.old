@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include "universe/object.h"
+#include "universe/stardb.h"
+
 namespace ofs::universe
 {
 	class Universe
@@ -18,5 +21,6 @@ namespace ofs::universe
 		void init();
 
 	private:
+		StarCatalog starlib;
 	};
 }

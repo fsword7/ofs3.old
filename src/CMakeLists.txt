@@ -10,7 +10,7 @@ set (ofs_cpp_srcs
 	universe/star.cpp
 	universe/stardb.cpp
 	universe/surface.cpp
-	universe/universe.h
+	universe/universe.cpp
 )
 
 set (ofs_h_srcs

@@ -7,16 +7,21 @@
 
 #pragma once
 
+#include "universe/xhipdata.h"
+
 namespace ofs::universe
 {
 //	class CelestialStar;
 
 	class StarCatalog
 	{
+	public:
 		StarCatalog() = default;
 		~StarCatalog() = default;
 
+		bool loadXHIPData(fs::path dataFolder);
+
 	private:
-		vector<CelestialStar *> stars;
+		vector<CelestialStar *> uStars;
 	};
 }

@@ -12,5 +12,8 @@ using namespace ofs::universe;
 
 void Universe::init()
 {
+	fs::path cwd = fs::current_path();
+//	cerr << "Current directory: " << fs::current_path() << std::endl;
 
+	starlib.loadXHIPData(cwd / "data");
 }

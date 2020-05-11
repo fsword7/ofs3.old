@@ -9,6 +9,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "main/core.h"
+#include "universe/universe.h"
 
 void init()
 {
@@ -66,9 +67,15 @@ void clean()
 
 int main(int argc, char **argv)
 {
+	using namespace ofs::universe;
+
 	cout << "Orbital Flight Simulator" << endl;
 
 	init();
+
+	Universe *u = new Universe();
+	u->init();
+
 	clean();
 
 	return 0;
