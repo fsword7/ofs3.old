@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include <cmath>
+
 #include "util/color.h"
 
 using namespace std;
