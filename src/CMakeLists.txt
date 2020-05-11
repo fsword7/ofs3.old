@@ -6,6 +6,11 @@ set (ofs_cpp_srcs
 	universe/surface.cpp
 	util/fix128.cpp
 	util/tree.cpp
+	universe/body.cpp
+	universe/star.cpp
+	universe/stardb.cpp
+	universe/surface.cpp
+	universe/universe.h
 )
 
 set (ofs_h_srcs
@@ -16,6 +21,11 @@ set (ofs_h_srcs
 	util/color.h
 	util/fix128.h
 	util/tree.h
+	universe/astro.h
+	universe/object.h
+	universe/stardb.h
+	universe/surface.h
+	universe/universe.h
 )
 
 include_directories(
