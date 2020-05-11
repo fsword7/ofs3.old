@@ -12,8 +12,7 @@
 #include <string>
 #include <vector>
 
-#include <cmath>
-
+#include "main/math.h"
 #include "util/color.h"
 
 using namespace std;
