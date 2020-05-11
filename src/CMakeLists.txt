@@ -27,7 +27,8 @@ include_directories(
 
 add_executable(ofs ${ofs_cpp_srcs} ${ofs_h_srcs})
 target_link_libraries(ofs
-	SDL2::SDL2
+	SDL2::Main
+	SDL2::Image
 	GLEW::GLEW
 	Freetype::Freetype
 	fmt::fmt
