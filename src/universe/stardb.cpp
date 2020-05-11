@@ -60,8 +60,8 @@ bool StarCatalog::loadXHIPData(fs::path dataFolder)
 	}
 
     // Create the Sun (Sol)
-//	star = CelestialStar::createSun();
-//	uStars.push_back(star);
+	star = CelestialStar::createSun();
+	uStars.push_back(star);
 
 	lineno = 0;
 	cnplx = 0;
@@ -139,11 +139,11 @@ bool StarCatalog::loadXHIPData(fs::path dataFolder)
 //					  << " Dist: " << dist << " eDist: " << edist << std::endl;
 		}
 
-//		star = CelestialStar::create(ra, de, dist, spType, vMag, ci, lum);
-//		star->setHIPNumber(hip);
-//		star->setName(bcells[XHIP_B_nNAME]);
+		star = CelestialStar::create(ra, de, dist, spType, vMag, ci, lum);
+		star->setIndex(hip);
+		star->setName(bcells[XHIP_B_nNAME]);
 
-//		uStars.push_back(star);
+		uStars.push_back(star);
 
 //		if (glm::length(star->getPosition(0)) < 1.0) {
 //			vec3d_t pos = star->getPosition(0);
@@ -160,7 +160,12 @@ bool StarCatalog::loadXHIPData(fs::path dataFolder)
 	cout << "Total " << cnplx << " stars with negative parallax." << endl;
 	cout << "Total " << czplx << " stars with zero parallax." << endl;
 
-//    finish();
+    finish();
 
 	return true;
+}
+
+void StarCatalog::finish()
+{
+
 }

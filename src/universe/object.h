@@ -11,6 +11,34 @@
 
 namespace ofs::universe
 {
+	enum SpectralClass
+	{
+		starSpectral_Unknown = 0,
+		starSpectral_O,
+		starSpectral_B,
+		starSpectral_A,
+		starSpectral_F,
+		starSpectral_G,
+		starSpectral_K,
+		starSpectral_M,
+		starSpectral_R,
+		starSpectral_S,
+		starSpectral_N,
+		starSpectral_WC,
+		starSpectral_WN,
+		starSpectral_L,
+		starSpectral_T,
+		starSpectral_C,
+		starSpectral_DA,
+		starSpectral_DB,
+		starSpectral_DC,
+		starSpectral_DO,
+		starSpectral_DQ,
+		starSpectral_DZ,
+		starSpectral_D,
+		starSpectral_DX
+	};
+
 	// Hierarchical planetary system
 	class PlanetarySystem
 	{
@@ -35,7 +63,7 @@ namespace ofs::universe
 			cbComet
 		};
 
-		CelestialBody(string &name, CelestialType type)
+		CelestialBody(const string &name, CelestialType type)
 		: Object(name, objCelestial), cbType(type)
 		{
 		}
@@ -49,11 +77,35 @@ namespace ofs::universe
 	class CelestialStar : public CelestialBody
 	{
 	public:
-		CelestialStar(string &name, CelestialType type)
-		: CelestialBody(name, type)
-		{
-		}
+		enum {
+			csKnownRadius   = 1,
+			csKnownRotation = 2,
+			csKnownSurface  = 4
+		};
+
+		CelestialStar() : CelestialBody("(noname)", cbStar) {}
+		CelestialStar(const string &name) : CelestialBody(name, cbStar) {}
+
+		static CelestialStar *createSun();
+		static CelestialStar *create(double ra, double dec, double pc,
+			const char *spType, double appMag, double ci, double lum);
+
+		inline void setIndex(int idx) { hipNumber = idx; }
+
+		inline int getIndex() const { return hipNumber; }
 
 	private:
+		uint32_t knownFlags = 0;
+
+		int hipNumber;
+
+		// J2000 Equator coordinates
+		double ra, dec, plx;
+
+		// Star atmosphere parameters
+		double absMag;
+		double bMag, vMag;
+		double ci, lum;
+		int    temp;
 	};
 }

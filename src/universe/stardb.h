@@ -22,6 +22,9 @@ namespace ofs::universe
 		bool loadXHIPData(fs::path dataFolder);
 
 	private:
+		void finish();
+
+	private:
 		vector<CelestialStar *> uStars;
 	};
 }

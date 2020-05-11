@@ -15,13 +15,23 @@ public:
 		objCelestial
 	};
 
-	Object(string &name, ObjectType type) : objType(type) {}
+	Object(const string &name, ObjectType type) : objType(type)
+	{
+		objNames[0] = name;
+	}
 
-	string getName() const { return objNames[0]; }
-	string getNames(int idx = 0) const
+	inline void setName(const string &name) { objNames[0] = name; }
+
+	inline string getName() const { return objNames[0]; }
+	inline string getNames(int idx = 0) const
 		{ return idx >= 0 && idx < objNames.size() ? objNames[idx] : ""; }
+
+	inline double getGeometryRadius() const { return geomRadius; }
 
 private:
 	ObjectType objType;
 	vector<string> objNames{1};
+
+protected:
+	double geomRadius = 0.0;
 };
