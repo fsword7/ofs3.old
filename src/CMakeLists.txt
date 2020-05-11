@@ -19,3 +19,8 @@ set (ofs_h_srcs
 )
 
 add_executable(ofs ${ofs_cpp_srcs} ${ofs_h_srcs})
+target_link_libraries(ofs
+	GLEW::GLEW
+	Freetype::Freetype
+	fmt::fmt
+)
