@@ -33,6 +33,16 @@ namespace ofs::astro
 	constexpr double G = 6.673889e-11;  // Official gravitational constant [N m/kg^2]
 	constexpr double J2000 = 2451545.0; // Epoch 2000 [Jan 1, 2000 at 12:00 UTC]
 
+	inline vec3d_t convertEquatorialToEcliptic(vec3d_t v)
+	{
+		return glm::rotateX(v, J2000Obliquity);
+	}
+
+	inline vec3d_t convertEclipticToEquatorial(vec3d_t v)
+	{
+		return glm::rotateX(v, -J2000Obliquity);
+	}
+
 	template <class T> T convertAbsToAppMag(T absMag, T pc)
 	{
 		return absMag - 5 + 5 * log10(pc);
