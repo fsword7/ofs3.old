@@ -17,6 +17,9 @@ public:
 
 	void init(uint32_t width, uint32_t height);
 
+	void start();
+	void finish();
+
 private:
 	uint32_t height = 1;
 	uint32_t width  = 1;

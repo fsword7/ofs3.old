@@ -8,3 +8,12 @@
 #include "main/core.h"
 #include "render/gl/context.h"
 
+void Context::start()
+{
+
+}
+
+void Context::finish()
+{
+
+}

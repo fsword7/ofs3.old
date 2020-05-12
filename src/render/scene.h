@@ -7,11 +7,19 @@
 
 #pragma once
 
-class Scene
-{
-public:
-	Scene() = default;
-	~Scene() = default;
+#include "render/gl/context.h"
 
-private:
-};
+namespace ofs::renderer
+{
+	class Scene
+	{
+	public:
+		Scene() = default;
+		~Scene() = default;
+
+		void render();
+
+	private:
+		Context gl;
+	};
+}
