@@ -21,6 +21,12 @@ using namespace std;
 
 namespace fs = std::filesystem;
 
+#define OFS_FULL_NAME		"Orbital Flight Simulator"
+#define OFS_SHORT_NAME		"OFS"
+#define OFS_DEFAULT_WIDTH	1600
+#define OFS_DEFAULT_HEIGHT	1000
+#define OFS_DEFAULT_FOV		35.0
+
 // Math library package
 
 #define PI (3.14159265358979323846)
