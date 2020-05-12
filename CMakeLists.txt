@@ -20,3 +20,5 @@ find_package(Freetype REQUIRED)
 find_package(fmt REQUIRED)
 
 add_subdirectory(src)
+add_subdirectory(src/tools/stardb)
+add_subdirectory(src/tools/vsop)
