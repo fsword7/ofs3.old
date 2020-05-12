@@ -17,10 +17,11 @@ void Scene::init()
 //	double power = pow(2.0, 4.0);
 //	buildGaussDiscStar(4, fwhm, power);
 
-//	double fwhm = 25.0 / pow(2.0, 4.0);
+//	double fwhm = 25.0 / pow(2.0, 3.0);
 //	double power = 0.66;
-//	buildGaussGlareStar(4, fwhm, power);
-
+//	uint16_t *data = buildGaussGlareStar(4, fwhm, power);
+//
+//	delete data;
 }
 
 void Scene::render()

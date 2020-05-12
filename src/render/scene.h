@@ -22,7 +22,7 @@ namespace ofs::renderer
 
 	private:
 //		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
-		void buildGaussGlareStar(uint32_t log2Size, double scale, double base);
+		uint16_t *buildGaussGlareStar(uint32_t log2Size, double scale, double base);
 
 	private:
 		Context gl;

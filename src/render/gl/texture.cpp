@@ -35,6 +35,7 @@ int Texture::getFormatComponents(int format)
 	case GL_RGB:
 		return 3;
 	case GL_LUMINANCE_ALPHA:
+	case GL_LUMINANCE16:
 		return 2;
 	case GL_ALPHA:
 	case GL_INTENSITY:

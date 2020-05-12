@@ -33,25 +33,25 @@ using namespace ofs::renderer;
 //	}
 //}
 
-void Scene::buildGaussGlareStar(uint32_t log2Size, double scale, double base)
+uint16_t *Scene::buildGaussGlareStar(uint32_t log2Size, double scale, double base)
 {
 	uint32_t size = 1u << log2Size;
+	uint16_t *data = new uint16_t[size * size];
 
 	for (uint32_t yidx = 0; yidx < size; yidx++)
 	{
-		double y = double(yidx) - size / 2.0;
+		float y = float(yidx) - size / 2.0f;
 		for (uint32_t xidx = 0; xidx < size; xidx++)
 		{
-			double x = double(xidx) - size / 2.0;
-			auto r = sqrt(x*x + y*y);
-			auto f = pow(base, r * scale);
-			auto val = min(f, 1.0);
-			cout << fmt::sprintf(" %.6lf", val);
-//			data[(yidx * size) + xidx] = uint8_t(255.99 * min(f, 1.0));
+			float x = float(xidx) - size / 2.0f;
+			auto r = float(sqrt(x*x + y*y));
+			auto f = float(pow(base, r * scale));
+			auto val = uint16_t(65535.99f * min(f, 1.0f));
+//			cout << fmt::sprintf(" %05d", val);
+			data[(yidx * size) + xidx] = val;
 		}
-		cout << endl;
+//		cout << endl;
 	}
+
+	return data;
 }
-
-
-
