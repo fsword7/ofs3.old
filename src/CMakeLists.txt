@@ -1,4 +1,5 @@
 set (ofs_cpp_srcs
+	engine/frame.cpp
 	engine/object.cpp
 	engine/player.cpp
 	main/sdl2/main.cpp
@@ -11,7 +12,6 @@ set (ofs_cpp_srcs
 	util/fix128.cpp
 	util/tree.cpp
 	universe/body.cpp
-	universe/frame.cpp
 	universe/star.cpp
 	universe/stardb.cpp
 	universe/startree.cpp
@@ -20,13 +20,13 @@ set (ofs_cpp_srcs
 )
 
 set (ofs_h_srcs
+	engine/frame.h
 	engine/object.h
 	engine/player.h
 	main/core.h
 	render/gl/context.h
 	render/camera.h
 	render/scene.h
-	universe/frame.h
 	universe/object.h
 	universe/surface.h
 	util/color.h

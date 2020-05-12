@@ -6,8 +6,9 @@
  */
 
 #include "main/core.h"
-#include "universe/frame.h"
+#include "engine/frame.h"
 
+using namespace ofs::engine;
 
 
 

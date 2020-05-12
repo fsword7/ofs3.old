@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace ofs::universe
+namespace ofs::engine
 {
 	class Object;
 
