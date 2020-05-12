@@ -11,6 +11,7 @@ set (ofs_cpp_srcs
 	util/fix128.cpp
 	util/tree.cpp
 	universe/body.cpp
+	universe/frame.cpp
 	universe/star.cpp
 	universe/stardb.cpp
 	universe/startree.cpp
@@ -25,6 +26,7 @@ set (ofs_h_srcs
 	render/gl/context.h
 	render/camera.h
 	render/scene.h
+	universe/frame.h
 	universe/object.h
 	universe/surface.h
 	util/color.h
