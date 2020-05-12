@@ -7,8 +7,10 @@
 
 #include "main/core.h"
 #include "universe/universe.h"
+#include "render/scene.h"
 
 using namespace ofs::universe;
+using namespace ofs::renderer;
 
 void Universe::init()
 {
@@ -16,4 +18,8 @@ void Universe::init()
 //	cerr << "Current directory: " << fs::current_path() << std::endl;
 
 	starlib.loadXHIPData(cwd / "data");
+
+
+	Scene *scene = new Scene();
+	scene->init();
 }

@@ -6,6 +6,7 @@ set (ofs_cpp_srcs
 	render/gl/context.cpp
 	render/camera.cpp
 	render/scene.cpp
+	render/stars.cpp
 	universe/body.cpp
 	universe/star.cpp
 	universe/surface.cpp

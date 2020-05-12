@@ -13,6 +13,8 @@
 #include <vector>
 #include <filesystem>
 
+#include <fmt/printf.h>
+
 #include "util/color.h"
 
 using namespace std;

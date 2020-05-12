@@ -17,7 +17,12 @@ namespace ofs::renderer
 		Scene() = default;
 		~Scene() = default;
 
+		void init();
 		void render();
+
+	private:
+//		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
+		void buildGaussGlareStar(uint32_t log2Size, double scale, double base);
 
 	private:
 		Context gl;
