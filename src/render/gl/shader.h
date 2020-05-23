@@ -42,7 +42,15 @@ private:
 
 class ShaderProgram
 {
+public:
+	ShaderProgram(const string &name)
+	: name(name) {}
+	~ShaderProgram() = default;
 
+	string getName() const { return name; }
+
+private:
+	string name;
 };
 
 class ShaderManager
@@ -52,6 +60,10 @@ public:
 	: gl(ctx)
 	{}
 
+	ShaderProgram *createShader(const string &name);
+
 private:
 	Context *gl;
+
+	vector<ShaderProgram *> programs;
 };

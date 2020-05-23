@@ -53,3 +53,50 @@ void ShaderSource::dump(ostream &out, const string &source)
 
 	out.flush();
 }
+
+// ******** Shader Manager ********
+
+ShaderProgram *ShaderManager::createShader(const string &name)
+{
+	// Check existing shader programs first.
+	for (int idx = 0; idx < programs.size(); idx++)
+		if (programs[idx]->getName() == name)
+			return programs[idx];
+
+	fs::path dataFolder = fs::current_path() / "data/shaders";
+	fs::path vsName = fmt::sprintf("%s-vs.glsl", name);
+	fs::path fsName = fmt::sprintf("%s-fs.glsl", name);
+
+	string vsSource, fsSource;
+	struct stat st;
+
+	ifstream vsFile(dataFolder / vsName);
+	if (vsFile.good())
+	{
+		auto vsSize = fs::file_size(vsName);
+
+		vsSource = string(vsSize, '\0');
+		vsFile.read(&vsSource[0], vsSize);
+		vsFile.close();
+	} else {
+		fmt::print(cerr, "OFS: Failed to open '%s' file: %s\n",
+			vsName, strerror(errno));
+		return nullptr;
+	}
+
+	ifstream fsFile(dataFolder / fsName);
+	if (fsFile.good())
+	{
+		auto fsSize = fs::file_size(fsName);
+
+		fsSource = string(fsSize, '\0');
+		fsFile.read(&fsSource[0], fsSize);
+		fsFile.close();
+	} else {
+		fmt::print(cerr, "OFS: Failed to open '%s' file: %s\n",
+			vsName, strerror(errno));
+		return nullptr;
+	}
+
+	return nullptr;
+}
