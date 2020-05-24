@@ -8,16 +8,14 @@
 #pragma once
 
 #include "util/tree.h"
+#include "universe/handler.h"
 
 #define STARTREE_MAGNITUDE   6.0
 #define STARTREE_ROOTSIZE    (10000000.0 / LY_PER_PARSEC)
 #define STARTREE_THRESHOLD   75
 
-namespace ofs::universe {
-	class CelestialStar;
-
-#include "universe/handler.h"
-
+namespace ofs::universe
+{
 	class StarTree : public Tree<StarTree, OTREE_NODES>
 	{
 	public:

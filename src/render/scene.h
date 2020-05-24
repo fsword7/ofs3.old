@@ -11,10 +11,11 @@
 #include "render/gl/buffer.h"
 #include "render/gl/shader.h"
 #include "render/olentry.h"
-#include "render/stars.h"
 
 namespace ofs::renderer
 {
+	class StarRenderer;
+
 	class Scene
 	{
 	public:
@@ -35,7 +36,7 @@ namespace ofs::renderer
 	private:
 		Context gl;
 
-		ShaderManager smgr;
-		StarRenderer  starRenderer;
+		ShaderManager  smgr;
+		StarRenderer  *starRenderer = nullptr;
 	};
 }

@@ -7,11 +7,13 @@
 
 #pragma once
 
-class ofsHandler {
-public:
-	ofsHandler() = default;
-	virtual ~ofsHandler() = default;
+namespace ofs::universe
+{
+	class ofsHandler {
+	public:
+		ofsHandler() = default;
+		virtual ~ofsHandler() = default;
 
-	virtual void process(const CelestialStar& star, double dist, double appMag) const = 0;
-};
-
+		virtual void process(const CelestialStar *star, double dist, double appMag) const = 0;
+	};
+}

@@ -7,8 +7,8 @@
 
 #include "main/core.h"
 #include "universe/astro.h"
-#include "universe/startree.h"
 #include "universe/object.h"
+#include "universe/startree.h"
 
 using namespace ofs::astro;
 using namespace ofs::universe;
@@ -103,10 +103,10 @@ void StarTree::processVisibleStars(const ofsHandler &handle, const vec3d_t &obs,
 	double dist = glm::length(obs - cellCenterPos) - scale * sqrt(3.0);
 
 	for (uint32_t idx = 0; idx < list.size(); idx++) {
-		const CelestialStar& obj = *list[idx];
+		const CelestialStar *obj = list[idx];
 
-		double dist = glm::length(obs - obj.getLocalPosition(0));
-		double appMag = convertAbsToAppMag(obj.getAbsMag(), dist);
+		double dist = glm::length(obs - obj->getLocalPosition(0));
+		double appMag = convertAbsToAppMag(obj->getAbsMag(), dist);
 
 		handle.process(obj, dist, appMag);
 	}
