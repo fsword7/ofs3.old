@@ -284,7 +284,7 @@ ShaderProgram *ShaderManager::buildPrograms(const string &name)
 	return pgm;
 }
 
-ShaderProgram *ShaderManager::createShader(const string &name)
+ShaderProgram *ShaderManager::getShader(const string &name)
 {
 	// Check existing shader programs first.
 	for (int idx = 0; idx < programs.size(); idx++)

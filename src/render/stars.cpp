@@ -10,6 +10,14 @@
 
 using namespace ofs::renderer;
 
+void Scene::initStarRenderer()
+{
+
+	starRenderer.ctx = &gl;
+	starRenderer.pgm = smgr.getShader("star");
+
+}
+
 //void Scene::buildGaussDiscStar(uint32_t log2Size, double scale, double power)
 //{
 //	uint32_t size = 1u << log2Size;

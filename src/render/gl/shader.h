@@ -96,7 +96,7 @@ public:
 	: gl(ctx)
 	{}
 
-	ShaderProgram *createShader(const string &name);
+	ShaderProgram *getShader(const string &name);
 
 private:
 	ShaderProgram *buildPrograms(const string &name);

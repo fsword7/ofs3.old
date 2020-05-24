@@ -30,7 +30,7 @@ void Scene::init()
 //
 //	delete data;
 
-	smgr.createShader("star");
+	initStarRenderer();
 }
 
 void Scene::render()
