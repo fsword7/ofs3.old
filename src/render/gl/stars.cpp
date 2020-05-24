@@ -7,47 +7,31 @@
 
 #include "main/core.h"
 #include "render/gl/context.h"
+#include "render/gl/buffer.h"
 #include "render/gl/shader.h"
 #include "render/gl/stars.h"
-#include "render/scene.h"
-
-using namespace ofs::renderer;
-
-StarVertex::StarVertex(Scene *scene)
-: scene(scene),
-  ctx(scene->getContext()),
-//  prm(*scene.getParameter()),
-  type(useNotUsed),
-  nStars(0),
-  flagStarted(false)
-{
-}
-
-StarVertex::~StarVertex()
-{
-}
 
 //void StarVertex::setTexture(Texture *image)
 //{
 //	txImage = image;
 //}
 
-void StarVertex::init(StarRenderer *render)
-{
-	pgm  = render->pgm;
-	vbuf = render->vbuf;
-}
+//void StarVertex::init()
+//{
+////	pgm  = render->pgm;
+////	vbuf = render->vbuf;
+//}
 
 void StarVertex::start()
 {
-	pgm->use();
-	vbuf->bind();
+	pgmStar->use();
+	vbufStar->bind();
 
 //	cout << "starVertex size: " << sizeof(starVertex) << endl;
 //	cout << "  vec3f_t size:  " << sizeof(vec3f_t) << endl;
 //	cout << "  Color size:    " << sizeof(Color) << endl;
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbuf->getVBO());
+	glBindBuffer(GL_ARRAY_BUFFER, vbufStar->getVBO());
 	glBufferData(GL_ARRAY_BUFFER, 120000 * sizeof(starVertex), nullptr, GL_STREAM_DRAW);
 	vertices = reinterpret_cast<starVertex *>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 	if (vertices == nullptr) {
@@ -103,7 +87,7 @@ void StarVertex::finish()
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
-		vbuf->unbind();
+		vbufStar->unbind();
 
 		glUseProgram(0);
 		glDisable(GL_PROGRAM_POINT_SIZE);

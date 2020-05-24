@@ -16,6 +16,13 @@ void Scene::initStarRenderer()
 	starRenderer.ctx = &gl;
 	starRenderer.pgm = smgr.getShader("star");
 
+	starRenderer.pointStarBuffer = new StarVertex();
+	starRenderer.pointStarBuffer->setProgram(starRenderer.pgm);
+	starRenderer.pointStarBuffer->setBuffer(starRenderer.vbuf);
+
+	starRenderer.glareStarBuffer = new StarVertex();
+	starRenderer.glareStarBuffer->setProgram(starRenderer.pgm);
+	starRenderer.glareStarBuffer->setBuffer(starRenderer.vbuf);
 }
 
 //void Scene::buildGaussDiscStar(uint32_t log2Size, double scale, double power)

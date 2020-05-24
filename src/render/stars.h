@@ -8,7 +8,9 @@
 #pragma once
 
 #include "render/gl/context.h"
+#include "render/gl/buffer.h"
 #include "render/gl/shader.h"
+#include "render/gl/stars.h"
 
 namespace ofs::renderer
 {
@@ -22,5 +24,8 @@ namespace ofs::renderer
 		Context *ctx = nullptr;
 		ShaderProgram *pgm = nullptr;
 		VertexBuffer *vbuf = nullptr;
+
+		StarVertex *pointStarBuffer = nullptr;
+		StarVertex *glareStarBuffer = nullptr;
 	};
 }

@@ -7,10 +7,6 @@
 
 #pragma once
 
-#include "render/scene.h"
-
-using namespace ofs::renderer;
-
 class StarVertex
 {
 public:
@@ -27,30 +23,32 @@ public:
 		float		size;
 	};
 
-	StarVertex(Scene *scene);
-	~StarVertex();
+	StarVertex() = default;
+	~StarVertex() = default;
 
-	void init(StarRenderer *render);
+//	void init();
 
 	// Render routines
 	void start();
 	void render();
 	void finish();
 
+	inline void setProgram(ShaderProgram *pgm) { pgmStar = pgm; }
+	inline void setBuffer(VertexBuffer *vbuf) { vbufStar = vbuf; }
+
 	void addStar(const vec3d_t &pos, const Color &color, double size);
 //	void setTexture(Texture *image);
 
 protected:
-	ofs::renderer::Scene *scene;
-	Context &ctx;
+	Context *ctx = nullptr;
 //	renderParameter &prm;
 
-	pointType type;
-	int  nStars;
-	bool flagStarted;
+	pointType type = useNotUsed;
+	int  nStars = 0;
+	bool flagStarted = false;
 
-	ShaderProgram *pgm = nullptr;
-	VertexBuffer  *vbuf = nullptr;
+	ShaderProgram *pgmStar = nullptr;
+	VertexBuffer  *vbufStar = nullptr;
 
 //	Texture *txImage = nullptr;
 
