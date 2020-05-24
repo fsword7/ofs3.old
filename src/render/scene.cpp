@@ -6,9 +6,16 @@
  */
 
 #include "main/core.h"
+#include "render/gl/context.h"
+#include "render/gl/shader.h"
 #include "render/scene.h"
 
 using namespace ofs::renderer;
+
+Scene::Scene()
+: smgr(&gl)
+{
+}
 
 void Scene::init()
 {
@@ -22,6 +29,8 @@ void Scene::init()
 //	uint16_t *data = buildGaussGlareStar(4, fwhm, power);
 //
 //	delete data;
+
+	smgr.createShader("star");
 }
 
 void Scene::render()

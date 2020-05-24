@@ -8,13 +8,14 @@
 #pragma once
 
 #include "render/gl/context.h"
+#include "render/gl/shader.h"
 
 namespace ofs::renderer
 {
 	class Scene
 	{
 	public:
-		Scene() = default;
+		Scene();
 		~Scene() = default;
 
 		void init();
@@ -26,5 +27,7 @@ namespace ofs::renderer
 
 	private:
 		Context gl;
+
+		ShaderManager smgr;
 	};
 }
