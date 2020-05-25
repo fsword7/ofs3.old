@@ -12,6 +12,10 @@ using namespace ofs;
 
 void CoreApp::init()
 {
+}
+
+void CoreApp::initEngine()
+{
 	engine = new Engine();
 	engine->init();
 }
@@ -22,6 +26,11 @@ void CoreApp::clean()
 }
 
 void CoreApp::update()
+{
+	// Update input controls
+}
+
+void CoreApp::render()
 {
 	engine->render();
 }

@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "main/core.h"
-#include "main/sdl2/core.h"
+#include "main/sdl2/coreapp.h"
 
 void sdlCoreApp::initScreen()
 {
@@ -66,18 +66,9 @@ void sdlCoreApp::closeScreen()
 	SDL_Quit();
 }
 
-int main(int argc, char **argv)
+void sdlCoreApp::run()
 {
-	using namespace ofs::engine;
-
-	sdlCoreApp app;
-
 	bool running = true;
-
-	cout << "Orbital Flight Simulator" << endl;
-
-	app.initScreen();
-	app.init();
 
 	while (running)
 	{
@@ -93,8 +84,26 @@ int main(int argc, char **argv)
 			}
 		}
 
-		app.update();
+		update();
+		render();
 	}
+}
+
+int main(int argc, char **argv)
+{
+	using namespace ofs::engine;
+
+	sdlCoreApp app;
+
+	bool running = true;
+
+	cout << "Orbital Flight Simulator" << endl;
+
+	app.init();
+	app.initScreen();
+	app.initEngine();
+
+	app.run();
 
 	app.clean();
 

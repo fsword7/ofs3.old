@@ -19,12 +19,16 @@ namespace ofs
 		CoreApp() = default;
 		virtual ~CoreApp() = default;
 
+		void initEngine();
+
 		virtual void init();
 		virtual void clean();
 		virtual void update();
+		virtual void render();
 
 		virtual void initScreen() = 0;
 		virtual void closeScreen() = 0;
+		virtual void run() = 0;
 
 	private:
 		Engine *engine = nullptr;

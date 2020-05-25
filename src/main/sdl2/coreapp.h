@@ -17,6 +17,7 @@ public:
 
 	void initScreen() override;
 	void closeScreen() override;
+	void run() override;
 
 private:
 	SDL_Window *dWindow = nullptr;
