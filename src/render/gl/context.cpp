@@ -10,10 +10,24 @@
 
 void Context::start()
 {
+	// Clear all screen
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 }
 
 void Context::finish()
 {
 
+}
+
+void Context::enableBlend()
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+}
+
+void Context::disableBlend()
+{
+	glDisable(GL_BLEND);
 }

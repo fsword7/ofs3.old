@@ -131,3 +131,24 @@ uint16_t *Scene::buildGaussGlareStar(uint32_t log2Size, double scale, double bas
 
 	return data;
 }
+
+void Scene::renderStars(const StarCatalog &stardb, double faintest)
+{
+	double  fov    = prm.cam->getFOVY();
+	double  aspect = prm.cam->getAspect();
+
+	starRenderer->viewPosition = prm.cpos;
+	starRenderer->faintestMagnitude = faintestMagnitude;
+	starRenderer->faintestMagnitudeNight = faintest;
+	starRenderer->saturationMagnitude = saturationMagnitude;
+	starRenderer->pixelSize = prm.pixelSize;
+
+	// Start star rendering now
+	gl.enableBlend();
+//	starRenderer->pointStarBuffer->start();
+//	starRenderer->glareStarBuffer->start();
+//	stardb.findVisibleStars(starRenderer, prm.cpos, prm.crot, fov, aspect, faintest);
+//	starRenderer->pointStarBuffer->finish();
+//	starRenderer->glareStarBuffer->finish();
+	gl.disableBlend();
+}

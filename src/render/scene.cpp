@@ -52,14 +52,16 @@ Camera *Scene::getCamera(int idx)
 
 void Scene::render(Player *player, Universe *universe)
 {
-	Camera *cam = views[0];
-
-	// Initial rendering parameter for vessel and camera
+	// Initial rendering parameter for vessel each frame
 	prm.now  = player->getCurrentTime();
 	prm.ppos = player->getGlobalPosition();
 	prm.prot = player->getGlobalOrientation();
-	prm.cpos = prm.ppos + cam->getOffsetPosition();
-	prm.crot = prm.prot * cam->getOffsetOrientation();
+
+	// Initialize camera parameters each frame
+	prm.cam  = views[0];
+	prm.pixelSize = prm.cam->computePixelSize();
+	prm.cpos = prm.ppos + prm.cam->getOffsetPosition();
+	prm.crot = prm.prot * prm.cam->getOffsetOrientation();
 
 	// Clear all current lists each frame
 	objectList.clear();
@@ -69,6 +71,8 @@ void Scene::render(Player *player, Universe *universe)
 	universe->findCloseStars(prm.cpos, 1.0, closeStars);
 
 	gl.start();
+
+	renderStars(universe->getStarCatalog(), faintestMagnitude);
 
 	gl.finish();
 }

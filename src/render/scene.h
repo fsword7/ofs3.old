@@ -9,6 +9,7 @@
 
 #include "engine/player.h"
 #include "universe/object.h"
+#include "universe/stardb.h"
 #include "universe/universe.h"
 
 #include "render/gl/context.h"
@@ -24,6 +25,9 @@ namespace ofs::renderer
 	struct RenderParameter
 	{
 		double  now;  // Current julian time
+
+		Camera *cam;  // Current view
+		double  pixelSize; // pixel size in current view
 
 		// player/vessel position/orientation
 		vec3d_t ppos; // Current vessel position
@@ -53,6 +57,8 @@ namespace ofs::renderer
 //		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
 		uint16_t *buildGaussGlareStar(uint32_t log2Size, double scale, double base);
 
+		void renderStars(const ofs::universe::StarCatalog &stardb, double faintest);
+
 	private:
 		Context gl;
 
@@ -67,6 +73,7 @@ namespace ofs::renderer
 		StarRenderer  *starRenderer = nullptr;
 
 		double faintestMagnitude = 6.0;
+		double saturationMagnitude = 0.0;
 		Color ambientColor = { 0.1, 0.1, 0.1 };
 		Color skyColor = { 0.0, 0.0, 0.0 };
 	};

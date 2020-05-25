@@ -18,6 +18,8 @@ namespace ofs::universe
 		Universe() = default;
 		~Universe() = default;
 
+		inline const StarCatalog &getStarCatalog() const { return starlib; }
+
 		void init();
 
 		void findCloseStars(const vec3d_t& obs, double mdist,

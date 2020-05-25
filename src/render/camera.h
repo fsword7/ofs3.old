@@ -23,9 +23,12 @@ namespace ofs::renderer
 
 		inline ViewType getViewType() const { return viewType; }
 		inline double getFOVY() const { return fovY; }
+		inline double getAspect() const { return aspect; }
 
 		inline vec3d_t getOffsetPosition() const { return opos; }
 		inline quatd_t getOffsetOrientation() const { return orot; }
+
+		double computePixelSize() const;
 
 	private:
 		ViewType viewType = viewMainScreen;

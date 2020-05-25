@@ -33,5 +33,11 @@ namespace ofs::renderer
 
 		StarVertex *pointStarBuffer = nullptr;
 		StarVertex *glareStarBuffer = nullptr;
+
+		vec3d_t viewPosition = { 0.0, 0.0, 0.0}; // view position
+		double  pixelSize = 0.0;
+		double  faintestMagnitude = 0.0;
+		double  faintestMagnitudeNight = 0.0;
+		double  saturationMagnitude = 0.0;
 	};
 }

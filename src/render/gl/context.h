@@ -20,6 +20,9 @@ public:
 	void start();
 	void finish();
 
+	void enableBlend();
+	void disableBlend();
+
 private:
 	uint32_t height = 1;
 	uint32_t width  = 1;

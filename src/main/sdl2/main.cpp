@@ -86,6 +86,7 @@ void sdlCoreApp::run()
 
 		update();
 		render();
+		SDL_GL_SwapWindow(dWindow);
 	}
 }
 

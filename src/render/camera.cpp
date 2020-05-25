@@ -15,3 +15,8 @@ Camera::Camera(ViewType type)
 {
 
 }
+
+double Camera::computePixelSize() const
+{
+	return 2.0 * tan(fovY / 2.0) / double(height);
+}
