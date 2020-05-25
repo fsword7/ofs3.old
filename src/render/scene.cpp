@@ -65,9 +65,6 @@ void Scene::render(Player *player, Universe *universe)
 	prm.cpos = prm.ppos + cam->getOffsetPosition();
 	prm.crot = prm.prot * cam->getOffsetOrientation();
 
-	prm.dmProj = glm::perspective(cam->getFOVY(), cam->getAspect(), DIST_NEAR, DIST_FAR);
-	prm.dmView = glm::transpose(glm::toMat4(prm.crot));
-
 	// Clear all current lists each frame
 	objectList.clear();
 	closeStars.clear();

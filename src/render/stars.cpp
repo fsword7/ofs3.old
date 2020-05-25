@@ -150,6 +150,10 @@ void Scene::renderStars(const StarCatalog &stardb, double faintest)
 	starRenderer->saturationMagnitude = saturationMagnitude;
 	starRenderer->pixelSize = prm.pixelSize;
 
+	// Set MVP for star rendering
+	prm.dmProj = glm::perspective(cam->getFOVY(), cam->getAspect(), DIST_NEAR, DIST_FAR);
+	prm.dmView = glm::transpose(glm::toMat4(prm.crot));
+
 	// Start star rendering now
 	gl.enableBlend();
 	starRenderer->pointStarBuffer->start(prm);
