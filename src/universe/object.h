@@ -87,7 +87,7 @@ namespace ofs::universe
 		CelestialStar(const string &name) : CelestialBody(name, cbStar) {}
 
 		static CelestialStar *createSun();
-		static CelestialStar *create(double ra, double dec, double pc,
+		static CelestialStar *create(double ra, double dec, double plx, double pc,
 			const char *spType, double appMag, double ci, double lum);
 
 		inline void setIndex(int idx) { hipNumber = idx; }

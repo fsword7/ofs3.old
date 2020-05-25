@@ -7,11 +7,13 @@
 
 #include "main/core.h"
 #include "engine/player.h"
+#include "universe/astro.h"
 #include "universe/universe.h"
 #include "render/gl/context.h"
 #include "render/gl/shader.h"
 #include "render/scene.h"
 
+using namespace ofs::astro;
 using namespace ofs::engine;
 using namespace ofs::universe;
 using namespace ofs::renderer;
@@ -63,7 +65,8 @@ void Scene::render(Player *player, Universe *universe)
 	objectList.clear();
 	closeStars.clear();
 
-//	universe->findCloseStars(prm.cpos, 1.0, closeStars);
+	// Find closest stars within one yearlight range
+	universe->findCloseStars(prm.cpos, 1.0, closeStars);
 
 	gl.start();
 

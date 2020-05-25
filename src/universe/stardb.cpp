@@ -142,7 +142,7 @@ bool StarCatalog::loadXHIPData(fs::path dataFolder)
 //					  << " Dist: " << dist << " eDist: " << edist << std::endl;
 		}
 
-		star = CelestialStar::create(ra, de, dist, spType, vMag, ci, lum);
+		star = CelestialStar::create(ra, de, plx, dist, spType, vMag, ci, lum);
 		star->setIndex(hip);
 		star->setName(bcells[XHIP_B_nNAME]);
 
@@ -205,4 +205,10 @@ void StarCatalog::finish()
 		hip = star->getIndex();
 		hipCatalogue[hip] = star;
 	}
+}
+
+void StarCatalog::findCloseStars(const vec3d_t& obs, double radius,
+		vector<const CelestialStar *>& stars) const
+{
+	starTree->processNearStars(obs, radius, STARTREE_ROOTSIZE, stars);
 }

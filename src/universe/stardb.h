@@ -22,6 +22,9 @@ namespace ofs::universe
 
 		bool loadXHIPData(fs::path dataFolder);
 
+        void findCloseStars(const vec3d_t& obs, double radius,
+        	vector<const CelestialStar *>& stars) const;
+
 	private:
 		void initOctreeData(vector<CelestialStar*> stars);
 		void finish();

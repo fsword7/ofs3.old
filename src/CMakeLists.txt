@@ -18,6 +18,7 @@ set (ofs_cpp_srcs
 	universe/surface.cpp
 	util/fix128.cpp
 	util/tree.cpp
+	universe/astro.cpp
 	universe/body.cpp
 	universe/star.cpp
 	universe/stardb.cpp
@@ -31,7 +32,7 @@ set (ofs_h_srcs
 	engine/frame.h
 	engine/object.h
 	engine/player.h
-	main/sdl2/core.h
+	main/sdl2/coreapp.h
 	main/core.h
 	main/coreapp.h
 	render/gl/buffer.h

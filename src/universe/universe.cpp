@@ -6,9 +6,11 @@
  */
 
 #include "main/core.h"
+#include "universe/astro.h"
 #include "universe/universe.h"
 #include "render/scene.h"
 
+using namespace ofs::astro;
 using namespace ofs::universe;
 using namespace ofs::renderer;
 
@@ -22,4 +24,16 @@ void Universe::init()
 
 	Scene *scene = new Scene();
 	scene->init();
+}
+
+void Universe::findCloseStars(const vec3d_t& obs, double mdist,
+		vector<const CelestialStar *>& stars) const
+{
+	int count;
+
+	starlib.findCloseStars(obs / KM_PER_PC, mdist /* * LY_PER_PARSEC */, stars);
+
+//	fmt::fprintf(cout, "Found %d closest stars\n", stars.size());
+//	for (int idx = 0; idx < stars.size(); idx++)
+//		fmt::fprintf(cout, "Star name: %s\n", stars[idx]->getName());
 }

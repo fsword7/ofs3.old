@@ -73,4 +73,5 @@ namespace ofs::astro
 		return convertAbsToAppMag(convertLumToAbsMag(mag), pc);
 	}
 
+	vec3d_t convertCelestialToEcliptic(double ra, double dec, double dist);
 }
