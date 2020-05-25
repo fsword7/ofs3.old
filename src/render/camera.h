@@ -7,11 +7,39 @@
 
 #pragma once
 
-class Camera
+namespace ofs::renderer
 {
-public:
-	Camera() = default;
-	~Camera() = default;
+	class Camera
+	{
+	public:
+		enum ViewType {
+			viewMainScreen,
+			viewMultiFunction1,
+			viewMultiFunction2,
+		};
 
-private:
-};
+		Camera(ViewType view);
+		~Camera() = default;
+
+		inline ViewType getViewType() const { return viewType; }
+		inline double getFOVY() const { return fovY; }
+
+		inline vec3d_t getOffsetPosition() const { return opos; }
+		inline quatd_t getOffsetOrientation() const { return orot; }
+
+	private:
+		ViewType viewType = viewMainScreen;
+
+		// Screen dimension parameters
+		uint32_t width  = 1;
+		uint32_t height = 1;
+		double   aspect = width / height;
+
+		// field of view in Y axis [raidians]
+		double fovY = glm::radians(OFS_DEFAULT_FOV);
+
+		// offset position in player reference frame
+		vec3d_t opos = { 0.0, 0.0, 0.0 };
+		quatd_t orot = { 1.0, 0.0, 0.0, 0.0 };
+	};
+}

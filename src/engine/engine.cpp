@@ -13,6 +13,7 @@ using namespace ofs::universe;
 
 void Engine::init()
 {
+	player = new Player();
 	universe = new Universe();
 	scene = new Scene();
 
@@ -22,5 +23,5 @@ void Engine::init()
 
 void Engine::render()
 {
-	scene->render();
+	scene->render(player, universe);
 }

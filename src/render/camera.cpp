@@ -7,3 +7,11 @@
 
 #include "main/core.h"
 #include "render/camera.h"
+
+using namespace ofs::renderer;
+
+Camera::Camera(ViewType type)
+: viewType(type)
+{
+
+}
