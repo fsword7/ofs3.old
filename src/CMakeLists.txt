@@ -1,8 +1,10 @@
 set (ofs_cpp_srcs
+	engine/engine.cpp
 	engine/frame.cpp
 	engine/object.cpp
 	engine/player.cpp
 	main/sdl2/main.cpp
+	main/coreapp.cpp
 	render/gl/buffer.cpp
 	render/gl/context.cpp
 	render/gl/shader.cpp
@@ -25,10 +27,13 @@ set (ofs_cpp_srcs
 )
 
 set (ofs_h_srcs
+	engine/engine.h
 	engine/frame.h
 	engine/object.h
 	engine/player.h
+	main/sdl2/core.h
 	main/core.h
+	main/coreapp.h
 	render/gl/buffer.h
 	render/gl/context.h
 	render/gl/shader.h

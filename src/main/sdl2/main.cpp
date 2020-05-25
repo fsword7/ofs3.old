@@ -9,12 +9,9 @@
 #include <SDL2/SDL_image.h>
 
 #include "main/core.h"
-#include "universe/universe.h"
-#include "render/gl/context.h"
+#include "main/sdl2/core.h"
 
-SDL_Window *dWindow = nullptr;
-
-void init()
+void sdlCoreApp::initScreen()
 {
 	// SDL main initialization
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -61,24 +58,26 @@ void init()
 	cout << "Everything good!" << endl;
 }
 
-void clean()
+void sdlCoreApp::closeScreen()
 {
+	SDL_DestroyWindow(dWindow);
+
 	IMG_Quit();
 	SDL_Quit();
 }
 
 int main(int argc, char **argv)
 {
-	using namespace ofs::universe;
+	using namespace ofs::engine;
+
+	sdlCoreApp app;
 
 	bool running = true;
 
 	cout << "Orbital Flight Simulator" << endl;
 
-	init();
-
-	Universe *u = new Universe();
-	u->init();
+	app.initScreen();
+	app.init();
 
 	while (running)
 	{
@@ -93,9 +92,11 @@ int main(int argc, char **argv)
 				break;
 			}
 		}
+
+		app.update();
 	}
 
-	clean();
+	app.clean();
 
 	return 0;
 }
