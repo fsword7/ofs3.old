@@ -72,6 +72,9 @@ namespace ofs::renderer
 		ShaderManager  smgr;
 		StarRenderer  *starRenderer = nullptr;
 
+		ShaderProgram *pgmStar = nullptr;
+		VertexBuffer  *vbufStar = nullptr;
+
 		double faintestMagnitude = 6.0;
 		double saturationMagnitude = 0.0;
 		Color ambientColor = { 0.1, 0.1, 0.1 };

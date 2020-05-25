@@ -10,7 +10,7 @@
 class Color
 {
 public:
-	Color();
+	Color() = default;
 	Color(float red, float green, float blue, float alpha = 1.0)
 	: red(red), green(green), blue(blue), alpha(alpha)
 	{}

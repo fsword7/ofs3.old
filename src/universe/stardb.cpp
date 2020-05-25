@@ -207,6 +207,32 @@ void StarCatalog::finish()
 	}
 }
 
+void StarCatalog::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
+		const quatd_t &rot, double fov, double aspect, double limitMag) const
+{
+//	planed_t frustum[5];
+//	vec3d_t  plane[5];
+//
+//	mat3d_t  mrot = rot.toRotationMatrix();
+//	double   h    = tan(fov / 2.0);
+//	double   w    = h * aspect;
+//
+//	plane[0] = vec3d_t(0.0, 1.0, -h);
+//	plane[1] = vec3d_t(0.0, -1.0, -h);
+//	plane[2] = vec3d_t(1.0, 0.0, -w);
+//	plane[3] = vec3d_t(-1.0, 0.0, -w);
+//	plane[4] = vec3d_t(0.0, 0.0, -1.0);
+//
+//	for (int idx = 0; idx < 5; idx++) {
+//		plane[idx] = mrot.transpose() * plane[idx].normalized();
+//		frustum[idx] = planed_t(plane[idx], obs);
+//	}
+
+//	cout << "Find visible stars by using octree..." << endl;
+	starTree->processVisibleStars(handle, obs / KM_PER_PC, /* frustum, */ limitMag, STARTREE_ROOTSIZE);
+//	cout << "Finished." << endl;
+}
+
 void StarCatalog::findCloseStars(const vec3d_t& obs, double radius,
 		vector<const CelestialStar *>& stars) const
 {

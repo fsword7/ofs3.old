@@ -53,6 +53,8 @@ void StarVertex::start()
 
 void StarVertex::render()
 {
+	vbufStar->bind();
+	glBindBuffer(GL_ARRAY_BUFFER, vbufStar->getVBO());
 	if (!glUnmapBuffer(GL_ARRAY_BUFFER)) {
 		cerr << "Buffer corrupted - aborted (error code: " << glGetError() << ")" << endl;
 		return;
@@ -75,7 +77,6 @@ void StarVertex::render()
 
 void StarVertex::finish()
 {
-
 	render();
 
 	flagStarted = false;
