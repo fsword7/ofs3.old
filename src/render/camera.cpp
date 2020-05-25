@@ -16,6 +16,13 @@ Camera::Camera(ViewType type)
 
 }
 
+void Camera::resize(int _width, int _height)
+{
+	width  = _width;
+	height = _height;
+	aspect = double(width)/double(height);
+}
+
 double Camera::computePixelSize() const
 {
 	return 2.0 * tan(fovY / 2.0) / double(height);

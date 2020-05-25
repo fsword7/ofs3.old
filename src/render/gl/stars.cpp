@@ -22,7 +22,7 @@
 ////	vbuf = render->vbuf;
 //}
 
-void StarVertex::start()
+void StarVertex::start(const RenderParameter &prm)
 {
 	pgmStar->use();
 	vbufStar->bind();
@@ -41,10 +41,8 @@ void StarVertex::start()
 
 	glEnable(GL_PROGRAM_POINT_SIZE);
 
-//	mat4f_t mvp = mat4f_t (prm.dmProj * prm.dmView * mat4d_t(1.0));
-//
-//	uint32_t mvpLoc = glGetUniformLocation(pgm->getID(), "mvp");
-//    glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	mat4f_t mvp = mat4f_t(prm.dmProj * prm.dmView);
+	pgmStar->setMatrix4fv("mvp", mvp);
 
 	nStars = 0;
 	type = useSprites;

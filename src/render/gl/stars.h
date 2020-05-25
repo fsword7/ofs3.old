@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "render/renderprm.h"
+
 class StarVertex
 {
 public:
@@ -29,7 +31,7 @@ public:
 //	void init();
 
 	// Render routines
-	void start();
+	void start(const RenderParameter &prm);
 	void render();
 	void finish();
 

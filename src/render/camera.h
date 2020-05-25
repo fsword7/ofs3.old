@@ -30,6 +30,8 @@ namespace ofs::renderer
 
 		double computePixelSize() const;
 
+		void resize(int width, int height);
+
 	private:
 		ViewType viewType = viewMainScreen;
 

@@ -20,10 +20,6 @@ void Universe::init()
 //	cerr << "Current directory: " << fs::current_path() << std::endl;
 
 	starlib.loadXHIPData(cwd / "data");
-
-
-	Scene *scene = new Scene();
-	scene->init();
 }
 
 void Universe::findCloseStars(const vec3d_t& obs, double mdist,

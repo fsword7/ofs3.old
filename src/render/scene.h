@@ -16,27 +16,33 @@
 #include "render/gl/buffer.h"
 #include "render/gl/shader.h"
 #include "render/olentry.h"
+#include "render/renderprm.h"
 #include "render/camera.h"
+
+#define DIST_NEAR	0.0001
+//#define DIST_FAR	1.0e15
+#define DIST_FAR 1.0e10
 
 namespace ofs::renderer
 {
 	class StarRenderer;
+	class Camera;
 
-	struct RenderParameter
-	{
-		double  now;  // Current julian time
-
-		Camera *cam;  // Current view
-		double  pixelSize; // pixel size in current view
-
-		// player/vessel position/orientation
-		vec3d_t ppos; // Current vessel position
-		quatd_t prot; // Current vessel orientation
-
-		// First/third person view position/orientation
-		vec3d_t cpos; // Current camera position (vessel reference frame)
-		quatd_t crot; // Current camera orientation (vessel reference frame)
-	};
+//	struct RenderParameter
+//	{
+//		double  now;  // Current julian time
+//
+//		Camera *cam;  // Current view
+//		double  pixelSize; // pixel size in current view
+//
+//		// player/vessel position/orientation
+//		vec3d_t ppos; // Current vessel position
+//		quatd_t prot; // Current vessel orientation
+//
+//		// First/third person view position/orientation
+//		vec3d_t cpos; // Current camera position (vessel reference frame)
+//		quatd_t crot; // Current camera orientation (vessel reference frame)
+//	};
 
 	class Scene
 	{
@@ -48,7 +54,7 @@ namespace ofs::renderer
 
 		Camera *getCamera(int idx = 0);
 
-		void init();
+		void init(int width, int height);
 		void render(ofs::engine::Player *player, ofs::universe::Universe *universe);
 
 	private:
@@ -67,6 +73,7 @@ namespace ofs::renderer
 		vector<ObjectListEntry *> objectList;
 		vector<const ofs::universe::CelestialStar *> closeStars;
 
+		Camera *cam = nullptr;
 		RenderParameter prm;
 
 		ShaderManager  smgr;

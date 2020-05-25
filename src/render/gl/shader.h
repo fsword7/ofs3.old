@@ -75,6 +75,14 @@ public:
 
 //	void setLightParameters(const LightState *ls, Color diffuse, Color specular, Color emissive);
 
+	void setMatrix4fv(const string &name, mat4f_t &value)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()),
+			1, GL_FALSE, glm::value_ptr(value));
+//		uint32_t loc = glGetUniformLocation(id, name.c_str());
+//		glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
+	}
+
 private:
 	string name;
 	GLuint id = 0;

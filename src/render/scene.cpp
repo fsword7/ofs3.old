@@ -23,7 +23,7 @@ Scene::Scene()
 {
 }
 
-void Scene::init()
+void Scene::init(int width, int height)
 {
 
 //	double fwhm = pow(2.0, 4.0 * 0.3);
@@ -40,6 +40,7 @@ void Scene::init()
 
 	// Initialize main view screen
 	Camera *cam = new Camera(Camera::viewMainScreen);
+	cam->resize(width, height);
 	views.push_back(cam);
 }
 
@@ -58,10 +59,14 @@ void Scene::render(Player *player, Universe *universe)
 	prm.prot = player->getGlobalOrientation();
 
 	// Initialize camera parameters each frame
-	prm.cam  = views[0];
-	prm.pixelSize = prm.cam->computePixelSize();
-	prm.cpos = prm.ppos + prm.cam->getOffsetPosition();
-	prm.crot = prm.prot * prm.cam->getOffsetOrientation();
+	cam = views[0];
+//	prm.cam  = views[0];
+	prm.pixelSize = cam->computePixelSize();
+	prm.cpos = prm.ppos + cam->getOffsetPosition();
+	prm.crot = prm.prot * cam->getOffsetOrientation();
+
+	prm.dmProj = glm::perspective(cam->getFOVY(), cam->getAspect(), DIST_NEAR, DIST_FAR);
+	prm.dmView = glm::transpose(glm::toMat4(prm.crot));
 
 	// Clear all current lists each frame
 	objectList.clear();
