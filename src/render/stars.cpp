@@ -156,9 +156,9 @@ void Scene::renderStars(const StarCatalog &stardb, double faintest)
 	// Start star rendering now
 	gl.enableBlend();
 	starRenderer->pointStarBuffer->start(prm);
-//	starRenderer->glareStarBuffer->start(prm);
+	starRenderer->glareStarBuffer->start(prm);
 	stardb.findVisibleStars(*starRenderer, prm.cpos, prm.crot, fov, aspect, faintest);
 	starRenderer->pointStarBuffer->finish();
-//	starRenderer->glareStarBuffer->finish();
+	starRenderer->glareStarBuffer->finish();
 	gl.disableBlend();
 }
