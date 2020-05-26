@@ -20,11 +20,16 @@ void Scene::initStarRenderer()
 	vbufStar = new VertexBuffer(gl, 1);
 	vbufStar->createBuffer(VertexBuffer::VBO, 1);
 
+	fs::path scfname = fs::current_path() / "data/stars/bbr_color_D58.txt";
+	starColors = new StarColors();
+	starColors->load(scfname);
+
 	starRenderer = new StarRenderer();
 
 	starRenderer->ctx  = &gl;
 	starRenderer->pgm  = pgmStar;
 	starRenderer->vbuf = vbufStar;
+	starRenderer->starColors = starColors;
 
 	starRenderer->pointStarBuffer = new StarVertex();
 	starRenderer->pointStarBuffer->setProgram(starRenderer->pgm);
@@ -73,9 +78,8 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 			alpha = 0.0;
 	}
 
-//	color  = starColors->lookup(star.getTemperature());
-//	color.setAlpha(alpha);
-	color = { 1.0f, 1.0f, 1.0f, float(alpha) };
+	color = starColors->lookup(star->getTemperature());
+	color.setAlpha(alpha);
 
 //	if (star.getHIPNumber() == 0) {
 //		cout << "Star size: " << discSize << " Position: " << rpos.x << "," << rpos.y << "," << rpos.z << endl;

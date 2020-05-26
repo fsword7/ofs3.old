@@ -18,6 +18,7 @@
 #include "render/olentry.h"
 #include "render/renderprm.h"
 #include "render/camera.h"
+#include "render/starcolors.h"
 
 #define DIST_NEAR	0.0001
 //#define DIST_FAR	1.0e15
@@ -78,6 +79,7 @@ namespace ofs::renderer
 		RenderParameter prm;
 
 		ShaderManager  smgr;
+		StarColors    *starColors = nullptr;
 		StarRenderer  *starRenderer = nullptr;
 
 		ShaderProgram *pgmStar = nullptr;

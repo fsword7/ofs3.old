@@ -93,6 +93,7 @@ namespace ofs::universe
 		inline void setIndex(int idx) { hipNumber = idx; }
 
 		inline int getIndex() const { return hipNumber; }
+		inline int getTemperature() const { return temp; }
 		inline double getAbsMag() const { return absMag; }
 
 	private:

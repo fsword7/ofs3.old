@@ -15,6 +15,11 @@ public:
 	: red(red), green(green), blue(blue), alpha(alpha)
 	{}
 
+	inline void setRed(float r)   { red = r; }
+	inline void setGreen(float g) { green = g; }
+	inline void setBlue(float b)  { blue = b; }
+	inline void setAlpha(float a) { alpha = a; }
+
 public:
 	float red   = 0.0;
 	float green = 0.0;

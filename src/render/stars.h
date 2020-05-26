@@ -31,6 +31,7 @@ namespace ofs::renderer
 		ShaderProgram *pgm = nullptr;
 		VertexBuffer *vbuf = nullptr;
 
+		StarColors *starColors = nullptr;
 		StarVertex *pointStarBuffer = nullptr;
 		StarVertex *glareStarBuffer = nullptr;
 
