@@ -66,10 +66,18 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 	double  alpha, ptSize;
 	Color   color;
 
+	// Do nothing if star is too far for z-buffer depth range
+	if (dist > starDistanceLimit)
+		return;
+
 	// Calculate relative position between star and camera positions.
 	spos  = star->getLocalPosition(0) * KM_PER_PC;
 	rpos  = spos - viewPosition;
 	rdist = glm::length(rpos);
+
+	// Do nothing if star is out of view area (behind me).
+	if (glm::dot(rpos, viewNormal) <= 0.0)
+		return;
 
 	// Calculate apparent size of star in view field
 	srad    = star->getGeometryRadius();
@@ -164,6 +172,7 @@ void Scene::renderStars(const StarCatalog &stardb, double faintest)
 	double  aspect = cam->getAspect();
 
 	starRenderer->viewPosition = prm.cpos;
+	starRenderer->viewNormal = prm.vpnorm;
 	starRenderer->faintestMagnitude = faintestMagnitude;
 	starRenderer->faintestMagnitudeNight = faintest;
 	starRenderer->saturationMagnitude = saturationMagnitude;

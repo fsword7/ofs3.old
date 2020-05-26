@@ -19,8 +19,9 @@ struct RenderParameter
 	quatd_t prot; // Current vessel orientation
 
 	// First/third person view position/orientation
-	vec3d_t cpos; // Current camera position (vessel reference frame)
-	quatd_t crot; // Current camera orientation (vessel reference frame)
+	vec3d_t cpos;   // Current camera position (vessel reference frame)
+	quatd_t crot;   // Current camera orientation (vessel reference frame)
+	vec3d_t vpnorm; // view normal (clipping)
 
 	mat4d_t dmProj;
 	mat4d_t dmView;
