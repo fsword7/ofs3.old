@@ -14,7 +14,7 @@
 class Context
 {
 public:
-	Context();
+	Context() : smgr(*this) {}
 	~Context() = default;
 
 	void init(uint32_t width, uint32_t height);

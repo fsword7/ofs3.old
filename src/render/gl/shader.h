@@ -101,7 +101,7 @@ class Context;
 class ShaderManager
 {
 public:
-	ShaderManager(Context *ctx)
+	ShaderManager(Context &ctx)
 	: gl(ctx)
 	{}
 
@@ -111,7 +111,7 @@ private:
 	ShaderProgram *buildPrograms(const string &name);
 
 private:
-	Context *gl;
+	Context &gl;
 
 	vector<ShaderProgram *> programs;
 };

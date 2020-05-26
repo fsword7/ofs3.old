@@ -8,11 +8,6 @@
 #include "main/core.h"
 #include "render/gl/context.h"
 
-Context::Context()
-: smgr(this)
-{
-}
-
 void Context::start()
 {
 	// Clear all screen
