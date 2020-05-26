@@ -24,12 +24,16 @@ namespace ofs::engine
 		~PlayerFrame() = default;
 
 	private:
-		FrameType type = frameEcliptic;
+		FrameType  type = frameEcliptic;
 	};
 
 	class Player
 	{
 	public:
+		enum TravelMode {
+			tvFree
+		};
+
 		Player() = default;
 		~Player() = default;
 
@@ -43,12 +47,25 @@ namespace ofs::engine
 		inline vec3d_t getLocalPosition() const { return lpos; }
 		inline quatd_t getLocalOrientation() const { return lrot; }
 
+		inline vec3d_t getAngularVelocity() { return av; }
+		inline vec3d_t getTravelVelocity()  { return tv; }
+		inline double  getTravelSpeed()     { return tv.z; }
+
 		// Setters
 		inline void setCurrentTime(double t) { nowTime = t; }
 		inline void setRealTime(double t)    { realTime = t; }
 
+		void setAngularVelocity(vec3d_t av);
+		void setTravelVelocity(vec3d_t tv);
+		void setTravelSpeed(double ts);
+
+		void updateUniversal();
+		void update(double dt);
+
 	private:
 		PlayerFrame frame;
+
+		TravelMode mode = tvFree;
 
 		double  nowTime = 0;  // Current simulation time
 		double  realTime = 0; // Current real time (today)
@@ -60,5 +77,10 @@ namespace ofs::engine
 		// Local position { local coordinate system in reference frame )
 		vec3d_t lpos = { 0.0, 0.0, 0.0 };
 		quatd_t lrot = { 1.0, 0.0, 0.0, 0.0 };
+
+		// Velocity control
+		vec3d_t	av = { 0.0, 0.0, 0.0 };      // Angular velocity
+		quatd_t wv = { 1.0, 0.0, 0.0, 0.0 }; //    Quaternion control
+		vec3d_t	tv = { 0.0, 0.0, 0.0 };      // Travel velocity
 	};
 }

@@ -26,6 +26,11 @@ void Engine::resize(int width, int height)
 	scene->resize(width, height);
 }
 
+void Engine::update(double dt)
+{
+	player->update(dt);
+}
+
 void Engine::render()
 {
 	scene->render(player, universe);

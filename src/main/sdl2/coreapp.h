@@ -19,6 +19,8 @@ public:
 	void closeScreen() override;
 	void run() override;
 
+	void pressKeyEvent(SDL_KeyboardEvent *key, bool down);
+
 private:
 	SDL_Window *dWindow = nullptr;
 };

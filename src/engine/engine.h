@@ -28,6 +28,7 @@ namespace ofs::engine
 
 		void init();
 		void resize(int width, int height);
+		void update(double dt);
 		void render();
 
 	private:
