@@ -78,7 +78,6 @@ namespace ofs::renderer
 		Camera *cam = nullptr;
 		RenderParameter prm;
 
-		ShaderManager  smgr;
 		StarColors    *starColors = nullptr;
 		StarRenderer  *starRenderer = nullptr;
 

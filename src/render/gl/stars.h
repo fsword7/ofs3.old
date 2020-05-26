@@ -25,8 +25,8 @@ public:
 		float		size;
 	};
 
-	StarVertex() = default;
-	~StarVertex() = default;
+	StarVertex(Context &gl);
+	~StarVertex();
 
 //	void init();
 
@@ -35,14 +35,11 @@ public:
 	void render();
 	void finish();
 
-	inline void setProgram(ShaderProgram *pgm) { pgmStar = pgm; }
-	inline void setBuffer(VertexBuffer *vbuf) { vbufStar = vbuf; }
-
 	void addStar(const vec3d_t &pos, const Color &color, double size);
 //	void setTexture(Texture *image);
 
 protected:
-	Context *ctx = nullptr;
+	Context &gl;
 //	renderParameter &prm;
 
 	pointType type = useNotUsed;

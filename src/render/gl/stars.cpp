@@ -16,11 +16,18 @@
 //	txImage = image;
 //}
 
-//void StarVertex::init()
-//{
-////	pgm  = render->pgm;
-////	vbuf = render->vbuf;
-//}
+StarVertex::StarVertex(Context &gl)
+: gl(gl)
+{
+	pgmStar  = gl.getShader("star");
+	vbufStar = new VertexBuffer(gl, 1);
+	vbufStar->createBuffer(VertexBuffer::VBO, 1);
+}
+
+StarVertex::~StarVertex()
+{
+	delete vbufStar;
+}
 
 void StarVertex::start(const RenderParameter &prm)
 {

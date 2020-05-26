@@ -16,7 +16,7 @@ using namespace ofs::universe;
 
 void Scene::initStarRenderer()
 {
-	pgmStar  = smgr.getShader("star");
+	pgmStar  = gl.getShader("star");
 	vbufStar = new VertexBuffer(gl, 1);
 	vbufStar->createBuffer(VertexBuffer::VBO, 1);
 
@@ -31,13 +31,8 @@ void Scene::initStarRenderer()
 	starRenderer->vbuf = vbufStar;
 	starRenderer->starColors = starColors;
 
-	starRenderer->pointStarBuffer = new StarVertex();
-	starRenderer->pointStarBuffer->setProgram(starRenderer->pgm);
-	starRenderer->pointStarBuffer->setBuffer(starRenderer->vbuf);
-
-	starRenderer->glareStarBuffer = new StarVertex();
-	starRenderer->glareStarBuffer->setProgram(starRenderer->pgm);
-	starRenderer->glareStarBuffer->setBuffer(starRenderer->vbuf);
+	starRenderer->pointStarBuffer = new StarVertex(gl);
+	starRenderer->glareStarBuffer = new StarVertex(gl);
 }
 
 void StarRenderer::process(const CelestialStar *star, double dist, double appMag) const

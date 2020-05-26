@@ -19,7 +19,6 @@ using namespace ofs::universe;
 using namespace ofs::renderer;
 
 Scene::Scene()
-: smgr(&gl)
 {
 }
 

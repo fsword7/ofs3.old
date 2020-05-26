@@ -97,6 +97,7 @@ private:
 	} lights[8];
 };
 
+class Context;
 class ShaderManager
 {
 public:
