@@ -83,41 +83,70 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 	srad    = star->getGeometryRadius();
 	objSize = ((srad / rdist) * 2.0) / pixelSize;
 
-//	if (star.getHIPNumber() == 0)
-//		cout << "Sun distance: " << rdist << " size: " << glm::degrees(asin(srad/rdist) * 2.0)
-//			 << " pixel: " << pxSize  << " -> " << srad / (rdist * pxSize) << endl;
+	if (dist < maxSolarSystemDistance) {
+		// Add this to object list for z-buffer sorting so that
+		// it will not occlude other objects in planetary system.
+		// Also that will be rendering as sphere and surface if
+		// star is very close.
 
-	if (objSize > pixelSize) {
-		discSize = objSize;
-		alpha = 1.0;
+		ObjectListEntry ole;
+
 	} else {
-		alpha  = faintestMagnitude - appMag;
-		discSize = 5.0; //baseSize;
-		if (alpha > 1.0) {
-			discScale = min(pow(2.0, 0.3 * (saturationMagnitude - appMag)), 100.0);
-			discSize *= discScale;
-			alpha = 1.0;
-		} else if (alpha < 0.0)
-			alpha = 0.0;
+	//	if (star.getHIPNumber() == 0)
+	//		cout << "Sun distance: " << rdist << " size: " << glm::degrees(asin(srad/rdist) * 2.0)
+	//			 << " pixel: " << pxSize  << " -> " << srad / (rdist * pxSize) << endl;
+
+		float satLevel = faintestMagnitude - 1.0;
+		float alpha    = (faintestMagnitude - appMag); // * brightnessScale + brightnessBias;
+
+		if (useScaledStars == true) {
+			// for scaled star rendering
+
+			discSize = 5.0;
+			if (alpha > 1.0) {
+				discScale = min(pow(2.0, 0.3 * (saturationMagnitude - appMag)), 100.0);
+				discSize *= discScale;
+
+//				float glareAlpha = min(0.5f, discScale / 4.0f);
+//				color.setAlpha(glareAlpha);
+//				glareStarBuffer->addStar(rpos, color, discSize);
+
+				alpha = 1.0;
+			} else if (alpha < 0.0)
+				alpha = 0.0;
+
+		} else {
+			// for point star rendering
+			discSize = 1.0;
+			if (alpha > 1.0) {
+				discScale = min(100.0, satLevel - appMag + 2.0);
+
+//				float glareAlpha = min(0.5f, discScale / 4.0f);
+//				color.setAlpha(glareAlpha);
+//				glareStarBuffer->addStar(rpos, color, discSize);
+
+			} else if (alpha < 0.0)
+				alpha = 0.0;
+		}
+
+		color = starColors->lookup(star->getTemperature());
+		color.setAlpha(alpha);
+
+		//	if (star.getHIPNumber() == 0) {
+		//		cout << "Star size: " << discSize << " Position: " << rpos.x << "," << rpos.y << "," << rpos.z << endl;
+		//		cout << "Star color: " << color.getRed() << "," << color.getGreen() << "," << color.getBlue() << "," << color.getAlpha() << endl;
+		//		discSize = 20.0;
+		////		rpos = -rpos;
+		////		starBuffer->addStar(rpos, color, discSize);
+		//	}
+
+		//	if (spos == vec3d_t(0, 0, 0))
+		//		cout << "HIP " << star.getHIPNumber() << " at origin" << endl;
+
+			// Finally, now display star
+		//	cout << "@@@ Adding a star..." << endl;
+			pointStarBuffer->addStar(rpos, color, discSize);
 	}
-
-	color = starColors->lookup(star->getTemperature());
-	color.setAlpha(alpha);
-
-//	if (star.getHIPNumber() == 0) {
-//		cout << "Star size: " << discSize << " Position: " << rpos.x << "," << rpos.y << "," << rpos.z << endl;
-//		cout << "Star color: " << color.getRed() << "," << color.getGreen() << "," << color.getBlue() << "," << color.getAlpha() << endl;
-//		discSize = 20.0;
-////		rpos = -rpos;
-////		starBuffer->addStar(rpos, color, discSize);
-//	}
-
-//	if (spos == vec3d_t(0, 0, 0))
-//		cout << "HIP " << star.getHIPNumber() << " at origin" << endl;
-
-	// Finally, now display star
-//	cout << "@@@ Adding a star..." << endl;
-	pointStarBuffer->addStar(rpos, color, discSize);
 }
 
 //void Scene::buildGaussDiscStar(uint32_t log2Size, double scale, double power)

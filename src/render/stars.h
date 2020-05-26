@@ -37,13 +37,15 @@ namespace ofs::renderer
 
 		vector<ObjectListEntry>* objectList = nullptr;
 
+		bool    useScaledStars = true;
 		vec3d_t viewPosition = { 0.0, 0.0, 0.0}; // view position
 		vec3d_t viewNormal = { 0.0, 0.0, 0.0}; // view normal clipping
 		double  pixelSize = 0.0;
 		double  faintestMagnitude = 0.0;
 		double  faintestMagnitudeNight = 0.0;
 		double  saturationMagnitude = 0.0;
-
+		double  brightnessBias;
+		double  brightnessScale;
 		double  maxSolarSystemDistance = 1.0; // one parsec
 
 		double starDistanceLimit = 1.0e6; // Due to z-buffer depth limitation
