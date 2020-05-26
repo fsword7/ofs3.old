@@ -19,6 +19,7 @@ set (ofs_cpp_srcs
 	universe/surface.cpp
 	util/fix128.cpp
 	util/tree.cpp
+	universe/asterisms.cpp
 	universe/astro.cpp
 	universe/body.cpp
 	universe/star.cpp
@@ -50,6 +51,7 @@ set (ofs_h_srcs
 	util/color.h
 	util/fix128.h
 	util/tree.h
+	universe/asterisms.h
 	universe/astro.h
 	universe/object.h
 	universe/stardb.h
