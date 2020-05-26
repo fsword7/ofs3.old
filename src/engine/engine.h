@@ -27,6 +27,7 @@ namespace ofs::engine
 		inline Universe *getUniverse() const { return universe; }
 
 		void init();
+		void resize(int width, int height);
 		void render();
 
 	private:

@@ -55,6 +55,7 @@ namespace ofs::renderer
 		Camera *getCamera(int idx = 0);
 
 		void init(int width, int height);
+		void resize(int width, int height);
 		void render(ofs::engine::Player *player, ofs::universe::Universe *universe);
 
 	private:

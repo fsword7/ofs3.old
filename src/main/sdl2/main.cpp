@@ -69,6 +69,7 @@ void sdlCoreApp::closeScreen()
 void sdlCoreApp::run()
 {
 	bool running = true;
+	int w, h;
 
 	while (running)
 	{
@@ -81,7 +82,17 @@ void sdlCoreApp::run()
 			case SDL_QUIT:
 				running = false;
 				break;
+
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+				{
+					SDL_GetWindowSize(dWindow, &w, &h);
+					resize(w, h);
+				}
+				break;
+
 			}
+
 		}
 
 		update();

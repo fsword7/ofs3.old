@@ -25,6 +25,11 @@ void CoreApp::clean()
 	delete engine;
 }
 
+void CoreApp::resize(int width, int height)
+{
+	engine->resize(width, height);
+}
+
 void CoreApp::update()
 {
 	// Update input controls

@@ -36,12 +36,20 @@ void Scene::init(int width, int height)
 //
 //	delete data;
 
+	gl.setViewport(width, height);
+
 	initStarRenderer();
 
 	// Initialize main view screen
 	Camera *cam = new Camera(Camera::viewMainScreen);
 	cam->resize(width, height);
 	views.push_back(cam);
+}
+
+void Scene::resize(int width, int height)
+{
+	views[0]->resize(width, height);
+	gl.setViewport(width, height);
 }
 
 Camera *Scene::getCamera(int idx)

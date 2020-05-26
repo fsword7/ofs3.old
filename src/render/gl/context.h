@@ -20,6 +20,7 @@ public:
 	void start();
 	void finish();
 
+	void setViewport(int width, int height);
 	void enableBlend();
 	void disableBlend();
 

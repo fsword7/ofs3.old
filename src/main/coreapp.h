@@ -25,6 +25,7 @@ namespace ofs
 		virtual void clean();
 		virtual void update();
 		virtual void render();
+		virtual void resize(int width, int height);
 
 		virtual void initScreen() = 0;
 		virtual void closeScreen() = 0;

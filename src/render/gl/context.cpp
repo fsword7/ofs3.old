@@ -21,6 +21,11 @@ void Context::finish()
 
 }
 
+void Context::setViewport(int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 void Context::enableBlend()
 {
 	glEnable(GL_BLEND);
