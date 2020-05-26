@@ -45,6 +45,12 @@ namespace ofs::renderer
 //		quatd_t crot; // Current camera orientation (vessel reference frame)
 //	};
 
+	struct VertexLine
+	{
+		vec3f_t lpos;
+		Color   color;
+	};
+
 	class Scene
 	{
 	public:
@@ -55,17 +61,20 @@ namespace ofs::renderer
 
 		Camera *getCamera(int idx = 0);
 
-		void init(int width, int height);
+		void init(const ofs::universe::Universe &universe, int width, int height);
 		void resize(int width, int height);
 		void render(ofs::engine::Player *player, ofs::universe::Universe *universe);
 
 	private:
 		void initStarRenderer();
+		void initConstellations(const ofs::universe::Universe &universe);
 
 //		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
 		uint16_t *buildGaussGlareStar(uint32_t log2Size, double scale, double base);
 
 		void renderStars(const ofs::universe::StarCatalog &stardb, double faintest);
+		void renderConstellations(const ofs::universe::Universe &universe,
+				const ofs::engine::Player &player);
 
 	private:
 		Context gl;
@@ -83,6 +92,10 @@ namespace ofs::renderer
 
 		ShaderProgram *pgmStar = nullptr;
 		VertexBuffer  *vbufStar = nullptr;
+
+		ShaderProgram *pgmAsterism = nullptr;
+		VertexBuffer  *vbufAsterism = nullptr;
+		uint32_t asterismLines = 0;
 
 		double faintestMagnitude = 6.0;
 		double saturationMagnitude = 0.0;

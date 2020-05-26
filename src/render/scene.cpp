@@ -22,7 +22,7 @@ Scene::Scene()
 {
 }
 
-void Scene::init(int width, int height)
+void Scene::init(const Universe &universe, int width, int height)
 {
 
 //	double fwhm = pow(2.0, 4.0 * 0.3);
@@ -38,6 +38,7 @@ void Scene::init(int width, int height)
 	gl.setViewport(width, height);
 
 	initStarRenderer();
+	initConstellations(universe);
 
 	// Initialize main view screen
 	Camera *cam = new Camera(Camera::viewMainScreen);
@@ -80,6 +81,8 @@ void Scene::render(Player *player, Universe *universe)
 	universe->findCloseStars(prm.cpos, 1.0, closeStars);
 
 	gl.start();
+
+	renderConstellations(*universe, *player);
 
 	renderStars(universe->getStarCatalog(), faintestMagnitude);
 

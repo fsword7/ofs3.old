@@ -18,7 +18,7 @@ void Engine::init()
 	scene = new Scene();
 
 	universe->init();
-	scene->init(OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
+	scene->init(*universe, OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
 }
 
 void Engine::resize(int width, int height)

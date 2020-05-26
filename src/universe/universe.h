@@ -9,6 +9,7 @@
 
 #include "universe/object.h"
 #include "universe/stardb.h"
+#include "universe/asterisms.h"
 
 namespace ofs::universe
 {
@@ -19,6 +20,7 @@ namespace ofs::universe
 		~Universe() = default;
 
 		inline const StarCatalog &getStarCatalog() const { return starlib; }
+		inline const Asterism &getAsterism() const { return asterism; }
 
 		void init();
 
@@ -27,5 +29,6 @@ namespace ofs::universe
 
 	private:
 		StarCatalog starlib;
+		Asterism    asterism;
 	};
 }

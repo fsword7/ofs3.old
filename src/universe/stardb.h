@@ -20,6 +20,8 @@ namespace ofs::universe
 		StarCatalog() = default;
 		~StarCatalog() = default;
 
+		inline CelestialStar *getIndex(int hip) const { return hipCatalogue[hip]; }
+
 		bool loadXHIPData(fs::path dataFolder);
 
 		void findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,

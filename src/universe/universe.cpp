@@ -20,6 +20,9 @@ void Universe::init()
 //	cerr << "Current directory: " << fs::current_path() << std::endl;
 
 	starlib.loadXHIPData(cwd / "data");
+
+	asterism.load(cwd / "data/asterisms/western/constellationship.fab");
+//	asterism.load(cwd / "data/asterisms/western_rey/constellationship.fab");
 }
 
 void Universe::findCloseStars(const vec3d_t& obs, double mdist,

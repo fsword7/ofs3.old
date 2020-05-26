@@ -12,6 +12,7 @@
 
 using namespace ofs::astro;
 using namespace ofs::renderer;
+using namespace ofs::engine;
 using namespace ofs::universe;
 
 void Scene::initStarRenderer()
@@ -33,6 +34,25 @@ void Scene::initStarRenderer()
 
 	starRenderer->pointStarBuffer = new StarVertex(gl);
 	starRenderer->glareStarBuffer = new StarVertex(gl);
+}
+
+void Scene::initConstellations(const Universe &universe)
+{
+	const Asterism &constellations = universe.getAsterism();
+	const StarCatalog &starlib = universe.getStarCatalog();
+	const vector<AsterismEntry *> &asterisms = constellations.getAsterisms();
+
+	pgmAsterism = gl.getShader("line");
+
+	pgmAsterism->use();
+
+	vbufAsterism = new VertexBuffer(gl, 1);
+	vbufAsterism->createBuffer(VertexBuffer::VBO, 1);
+
+	for (int idx = 0; idx < asterisms.size(); idx++) {
+		AsterismEntry *aster = asterisms[idx];
+		asterismLines += aster->hip.size();
+	}
 }
 
 void StarRenderer::process(const CelestialStar *star, double dist, double appMag) const
@@ -161,4 +181,90 @@ void Scene::renderStars(const StarCatalog &stardb, double faintest)
 	starRenderer->pointStarBuffer->finish();
 	starRenderer->glareStarBuffer->finish();
 	gl.disableBlend();
+}
+
+void Scene::renderConstellations(const Universe &universe, const Player &player)
+{
+	const Asterism &constellations = universe.getAsterism();
+	const StarCatalog &starlib = universe.getStarCatalog();
+	const vector<AsterismEntry *> &asterisms = constellations.getAsterisms();
+
+	Camera *cam = views[0];
+	vec3d_t cpos = prm.cpos;
+	int cLines = 0;
+
+	VertexLine *vertices = nullptr;
+	uint32_t vbo = vbufAsterism->getVBO();
+
+	pgmAsterism->use();
+	vbufAsterism->bind();
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, asterismLines * sizeof(VertexLine), nullptr, GL_STREAM_DRAW);
+	vertices = reinterpret_cast<VertexLine *>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+	if (vertices == nullptr) {
+		fmt::fprintf(cerr, "Can't render stars - aborted (error code: %d\n)", glGetError());
+		return;
+	}
+
+//	for (int idx = 0; idx < asterisms.size(); idx++) {
+//		Asterism *aster = asterisms[idx];
+//		cLines += aster->hip.size();
+//	}
+//	if (bufAsterism == nullptr) {
+//		bufAsterism = new VertexLine[cLines];
+//	}
+
+	int rLines = 0;
+	for (int idx = 0; idx < asterisms.size(); idx++) {
+		AsterismEntry *aster = asterisms[idx];
+		for (int sidx = 0; sidx < aster->hip.size(); sidx += 2) {
+			CelestialStar *star1 = starlib.getIndex(aster->hip[sidx]);
+			CelestialStar *star2 = starlib.getIndex(aster->hip[sidx+1]);
+
+			if (star1 == nullptr)
+				std::cout << "HIP " << aster->hip[sidx] << " Missing" << std::endl;
+			if (star2 == nullptr)
+				std::cout << "HIP " << aster->hip[sidx+1] << " Missing" << std::endl;
+			if (star1 == nullptr || star2 == nullptr)
+				continue;
+
+			vertices[rLines].lpos   = vec3f_t((star1->getLocalPosition(0) * KM_PER_PC) - prm.cpos);
+			vertices[rLines].color  = Color(0.5, 0.5, 0.5, 1.0);
+			rLines++;
+			vertices[rLines].lpos   = vec3f_t((star2->getLocalPosition(0) * KM_PER_PC) - prm.cpos);
+			vertices[rLines].color  = Color(0.5, 0.5, 0.5, 1.0);
+			rLines++;
+
+//			std::cout << "HIP: " << aster->hip[sidx]
+//					  << " Name: " << star->name(0) << std::endl;
+		}
+//		std::cout << std::endl;
+	}
+
+	if (!glUnmapBuffer(GL_ARRAY_BUFFER)) {
+		cerr << "Buffer corrupted - aborted (error code: " << glGetError() << ")" << endl;
+		return;
+	}
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexLine), (void *)0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexLine), (void *)(3 * sizeof(float)));
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	// Set MVP for star rendering
+	prm.dmProj = glm::perspective(cam->getFOVY(), cam->getAspect(), DIST_NEAR, DIST_FAR);
+	prm.dmView = glm::transpose(glm::toMat4(prm.crot));
+
+	mat4f_t mvp = mat4f_t(prm.dmProj * prm.dmView);
+	pgmAsterism->setMatrix4fv("mvp", mvp);
+
+	glDrawArrays(GL_LINES, 0, rLines);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	vbufAsterism->unbind();
+
+	glUseProgram(0);
 }
