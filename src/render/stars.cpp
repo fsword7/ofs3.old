@@ -27,10 +27,12 @@ void Scene::initStarRenderer()
 
 	starRenderer = new StarRenderer();
 
+	starRenderer->prm  = &prm;
 	starRenderer->ctx  = &gl;
 	starRenderer->pgm  = pgmStar;
 	starRenderer->vbuf = vbufStar;
 	starRenderer->starColors = starColors;
+	starRenderer->objectList = &objectList;
 
 	starRenderer->pointStarBuffer = new StarVertex(gl);
 	starRenderer->glareStarBuffer = new StarVertex(gl);
@@ -85,12 +87,28 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 
 	if (dist < maxSolarSystemDistance) {
 		// Add this to object list for z-buffer sorting so that
-		// it will not occlude other objects in planetary system.
+		// it will not occlude other objects in solar system.
 		// Also that will be rendering as sphere and surface if
 		// star is very close.
 
 		ObjectListEntry ole;
 
+		mat3d_t view = glm::toMat3(prm->crot);
+
+		ole.type	  = ObjectListEntry::objRenderableStar;
+		ole.object	  = star;
+		ole.position  = rpos;
+		ole.distance  = rdist;
+		ole.radius	  = star->getGeometryRadius();
+		ole.pixelSize = objSize;
+		ole.appMag    = appMag;
+		ole.zCenter   = glm::dot(ole.position, view[2]);
+		ole.isOpague  = true;
+
+		objectList->push_back(ole);
+
+		cout << "Added closest star to object list...\n";
+		cout.flush();
 	} else {
 	//	if (star.getHIPNumber() == 0)
 	//		cout << "Sun distance: " << rdist << " size: " << glm::degrees(asin(srad/rdist) * 2.0)

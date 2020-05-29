@@ -72,7 +72,7 @@ void Scene::render(Player *player, Universe *universe)
 	prm.pixelSize = cam->computePixelSize();
 	prm.cpos = prm.ppos + cam->getOffsetPosition();
 	prm.crot = prm.prot * cam->getOffsetOrientation();
-	prm.vpnorm = prm.prot * vec3d_t(0, 0, -1);
+	prm.vpnorm = prm.crot * vec3d_t(0, 0, -1);
 
 	// Clear all current lists each frame
 	objectList.clear();

@@ -81,7 +81,7 @@ namespace ofs::renderer
 
 		vector<Camera *> views;
 
-		vector<ObjectListEntry *> objectList;
+		vector<ObjectListEntry> objectList;
 		vector<const ofs::universe::CelestialStar *> closeStars;
 
 		Camera *cam = nullptr;

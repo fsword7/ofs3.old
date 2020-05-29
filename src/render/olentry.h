@@ -11,6 +11,19 @@ namespace ofs::renderer
 {
 	struct ObjectListEntry
 	{
+		enum ObjectType {
+			objRenderableStar,
+			objRenderableBody
+		};
 
+		ObjectType	  type;
+		const Object *object;
+		vec3d_t		  position;
+		double		  distance;
+		double		  radius;
+		double		  appMag;
+		double		  pixelSize;
+		double		  zCenter;
+		bool		  isOpague;
 	};
 }

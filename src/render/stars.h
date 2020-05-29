@@ -37,6 +37,8 @@ namespace ofs::renderer
 
 		vector<ObjectListEntry>* objectList = nullptr;
 
+		RenderParameter *prm = nullptr;
+
 		bool    useScaledStars = true;
 		vec3d_t viewPosition = { 0.0, 0.0, 0.0}; // view position
 		vec3d_t viewNormal = { 0.0, 0.0, 0.0}; // view normal clipping
