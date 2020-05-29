@@ -6,6 +6,7 @@
  */
 
 #include "main/core.h"
+#include "render/gl/mesh.h"
 #include "render/surface.h"
 
 using namespace ofs::renderer;
@@ -29,8 +30,10 @@ void Surface::createSphere(int level, int ilat, int ilng, int xGrids, int yGrids
 
 	vec3d_t pos;
 
-	uint16_t *pidx = nullptr;
+	vec3d_t  *vertices = new vec3d_t[nVertices];
+	uint16_t *indices = new uint16_t[nIndices];
 
+	vec3d_t *pvtx = vertices;
 	for (int y = 0; y <= yGrids; y++)
 	{
 		lat  = mlat0 + (mlat1-mlat0) * double(y)/double(yGrids);
@@ -43,9 +46,12 @@ void Surface::createSphere(int level, int ilat, int ilng, int xGrids, int yGrids
 
 			// normalized sphere coordinates
 			pos = vec3d_t(slat*clng, clat, slat*-slng);
+
+			*pvtx++ = pos;
 		}
 	}
 
+	uint16_t *pidx = indices;
 	for (int y = 0; y < yGrids; y++)
 	{
 		for (int x = 0; x < xGrids; x++)
@@ -59,4 +65,12 @@ void Surface::createSphere(int level, int ilat, int ilng, int xGrids, int yGrids
 			*pidx++ = (y+0)*(yGrids+1) + (x+1);
 		}
 	}
+
+	Mesh *mesh = new Mesh();
+
+	delete [] vertices;
+	delete [] indices;
+	delete mesh;
+
+//	return mesh;
 }

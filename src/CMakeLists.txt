@@ -7,6 +7,7 @@ set (ofs_cpp_srcs
 	main/coreapp.cpp
 	render/gl/buffer.cpp
 	render/gl/context.cpp
+	render/gl/mesh.cpp
 	render/gl/shader.cpp
 	render/gl/stars.cpp
 	render/gl/texture.cpp
@@ -38,6 +39,7 @@ set (ofs_h_srcs
 	main/coreapp.h
 	render/gl/buffer.h
 	render/gl/context.h
+	render/gl/mesh.h
 	render/gl/shader.h
 	render/gl/stars.h
 	render/gl/texture.h
