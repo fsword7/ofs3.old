@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "engine/object.h"
+
 namespace ofs::engine
 {
 	class PlayerFrame
@@ -27,13 +29,14 @@ namespace ofs::engine
 		FrameType  type = frameEcliptic;
 	};
 
-	class Player
+	class Player // : public Object
 	{
 	public:
 		enum TravelMode {
 			tvFree
 		};
 
+//		Player() : Object("(Player)", objPlayer) {}
 		Player() = default;
 		~Player() = default;
 
@@ -51,6 +54,8 @@ namespace ofs::engine
 		inline vec3d_t getTravelVelocity()  { return tv; }
 		inline double  getTravelSpeed()     { return tv.z; }
 
+		inline Object *getSelectedObject() const { return selectedObject; }
+
 		// Setters
 		inline void setCurrentTime(double t) { nowTime = t; }
 		inline void setRealTime(double t)    { realTime = t; }
@@ -62,8 +67,14 @@ namespace ofs::engine
 		void updateUniversal();
 		void update(double dt);
 
+		void move(const Object &obj, double dist = 0);
+		void follow(const Object &obj);
+		void look(const Object &obj);
+
 	private:
 		PlayerFrame frame;
+
+		Object *selectedObject = nullptr;
 
 		TravelMode mode = tvFree;
 

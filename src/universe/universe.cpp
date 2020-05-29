@@ -25,6 +25,11 @@ void Universe::init()
 //	asterism.load(cwd / "data/asterisms/western_rey/constellationship.fab");
 }
 
+Object *Universe::find(const string &name) const
+{
+	return starlib.find(name);
+}
+
 void Universe::findCloseStars(const vec3d_t& obs, double mdist,
 		vector<const CelestialStar *>& stars) const
 {

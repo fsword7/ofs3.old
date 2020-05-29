@@ -24,6 +24,8 @@ namespace ofs::universe
 
 		bool loadXHIPData(fs::path dataFolder);
 
+		CelestialStar *find(const string &name) const;
+
 		void findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
 				const quatd_t &rot, double fov, double aspect, double limitMag) const;
         void findCloseStars(const vec3d_t& obs, double radius,

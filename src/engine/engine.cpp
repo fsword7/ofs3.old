@@ -19,6 +19,15 @@ void Engine::init()
 
 	universe->init();
 	scene->init(*universe, OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
+
+	// Hacks - To be removed later
+	Object *sun = universe->find("Sol");
+	if (sun != nullptr) {
+//		cout << "Star name: " << sun->getName() << endl << flush;
+		player->move(*sun);
+		player->look(*sun);
+	} else
+		cout << "Object 'Sol' not found" << endl << flush;
 }
 
 void Engine::resize(int width, int height)

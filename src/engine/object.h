@@ -12,6 +12,7 @@ class Object
 public:
 	enum ObjectType {
 		objUnknown = 0,
+		objPlayer,
 		objCelestial
 	};
 
@@ -28,9 +29,9 @@ public:
 
 	inline double getGeometryRadius() const { return geomRadius; }
 
-//	inline vec3d_t getGlobalPosition() const { return objPosition; }
-	inline vec3d_t getLocalPosition(double = 0) const { return objPosition; }
-	inline quatd_t getOrientation(double = 0) const { return objOrientation; }
+	inline vec3d_t getGlobalPosition(double t = 0) const { return objPosition; }
+	inline vec3d_t getLocalPosition(double t = 0) const { return objPosition; }
+	inline quatd_t getOrientation(double t = 0) const { return objOrientation; }
 
 private:
 	ObjectType objType;

@@ -24,6 +24,8 @@ namespace ofs::universe
 
 		void init();
 
+		Object *find(const string &name) const;
+
 		void findCloseStars(const vec3d_t& obs, double mdist,
 				vector<const CelestialStar *>& stars) const;
 

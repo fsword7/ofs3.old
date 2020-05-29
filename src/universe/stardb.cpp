@@ -207,6 +207,17 @@ void StarCatalog::finish()
 	}
 }
 
+CelestialStar *StarCatalog::find(const string &name) const
+{
+	for (int idx = 0; idx < uStars.size(); idx++)
+	{
+		CelestialStar *star = uStars[idx];
+		if (star->getName() == name)
+			return star;
+	}
+	return nullptr;
+}
+
 void StarCatalog::findVisibleStars(const ofsHandler& handle, const vec3d_t& obs,
 		const quatd_t &rot, double fov, double aspect, double limitMag) const
 {
