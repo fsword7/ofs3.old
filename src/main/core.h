@@ -29,7 +29,8 @@ namespace fs = std::filesystem;
 
 // Math library package
 
-#define PI (3.14159265358979323846)
+#define PI  (3.14159265358979323846)
+#define PI2 (PI * 2.0)
 
 #include <cmath>
 

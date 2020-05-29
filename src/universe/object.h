@@ -8,6 +8,7 @@
 #pragma once
 
 #include "engine/object.h"
+#include "render/surface.h"
 
 namespace ofs::universe
 {
@@ -72,6 +73,8 @@ namespace ofs::universe
 		CelestialType cbType = cbUnknown;
 
 	protected:
+		ofs::renderer::Surface *surface = nullptr;
+
 	};
 
 	class CelestialStar : public CelestialBody

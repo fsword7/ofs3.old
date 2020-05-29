@@ -14,19 +14,18 @@ set (ofs_cpp_srcs
 	render/scene.cpp
 	render/starcolors.cpp
 	render/stars.cpp
-	universe/body.cpp
-	universe/star.cpp
-	universe/surface.cpp
-	util/fix128.cpp
-	util/tree.cpp
+	render/surface.cpp
 	universe/asterisms.cpp
 	universe/astro.cpp
 	universe/body.cpp
 	universe/star.cpp
 	universe/stardb.cpp
 	universe/startree.cpp
-	universe/surface.cpp
+	universe/star.cpp
 	universe/universe.cpp
+	util/fix128.cpp
+	util/tree.cpp
+
 )
 
 set (ofs_h_srcs
@@ -46,18 +45,16 @@ set (ofs_h_srcs
 	render/scene.h
 	render/starcolors.h
 	render/stars.h
-	universe/object.h
-	universe/surface.h
-	util/color.h
-	util/fix128.h
-	util/tree.h
+	render/surface.h
 	universe/asterisms.h
 	universe/astro.h
 	universe/object.h
 	universe/stardb.h
 	universe/startree.h
-	universe/surface.h
 	universe/universe.h
+	util/color.h
+	util/fix128.h
+	util/tree.h
 )
 
 include_directories(
