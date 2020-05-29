@@ -77,13 +77,27 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 	rpos  = spos - viewPosition;
 	rdist = glm::length(rpos);
 
+//	if (star->getName() == "Sol") {
+//		fmt::fprintf(cout, "Star 1 distance: %lf (max %lf)\n",
+//			dist, maxSolarSystemDistance);
+//		fmt::fprintf(cout, " Position: (%lf,%lf,%lf) Result: %lf\n",
+//			rpos.x, rpos.y, rpos.z, glm::dot(rpos, viewNormal));
+//		cout.flush();
+//	}
+
 	// Do nothing if star is out of view area (behind me).
-	if (glm::dot(rpos, viewNormal) <= 0.0)
+	if (glm::dot(rpos, viewNormal) < 0.0)
 		return;
 
 	// Calculate apparent size of star in view field
 	srad    = star->getGeometryRadius();
 	objSize = ((srad / rdist) * 2.0) / pixelSize;
+
+//	if (star->getName() == "Sol") {
+//		fmt::fprintf(cout, "Star 2 distance: %lf (max %lf)\n",
+//			dist, maxSolarSystemDistance);
+//		cout.flush();
+//	}
 
 	if (dist < maxSolarSystemDistance) {
 		// Add this to object list for z-buffer sorting so that
@@ -107,8 +121,6 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 
 		objectList->push_back(ole);
 
-		cout << "Added closest star to object list...\n";
-		cout.flush();
 	} else {
 	//	if (star.getHIPNumber() == 0)
 	//		cout << "Sun distance: " << rdist << " size: " << glm::degrees(asin(srad/rdist) * 2.0)

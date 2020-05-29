@@ -61,14 +61,12 @@ void Player::move(const Object &obj, double dist)
 	if (dist <= obj.getGeometryRadius())
 		dist = obj.getGeometryRadius() * 3.0;
 
-	upos = opos + glm::conjugate(orot) * vec3d_t(0, 0, -dist);
+	upos = opos + glm::conjugate(orot) * vec3d_t(0, 0, dist);
 	urot = orot;
 
 	// Convert global coordinates to local coordinates.
 	lpos = upos; // frame->fromGlobalSpace(upos, nowTime);
 	lrot = urot; // frame->fromGlobalSpace(urot, nowTime);
-
-	selectedObject = &obj;
 }
 
 void Player::follow(const Object &obj)
@@ -82,6 +80,6 @@ void Player::look(const Object &obj)
 	vec3d_t opos = obj.getGlobalPosition(nowTime);
 	vec3d_t up   = vec3d_t(0, 1, 0);
 
-	urot = glm::lookAt(opos, upos, up);
+	urot = glm::lookAt(upos, opos, up);
 	lrot = urot; // frame->fromGlobalSpace(urot, nowTime);
 }

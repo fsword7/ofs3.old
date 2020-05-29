@@ -64,6 +64,8 @@ namespace ofs::engine
 		void setTravelVelocity(vec3d_t tv);
 		void setTravelSpeed(double ts);
 
+		void setSelectedObject(Object *obj) { selectedObject = obj; }
+
 		void updateUniversal();
 		void update(double dt);
 

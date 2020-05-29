@@ -21,11 +21,12 @@ void Engine::init()
 	scene->init(*universe, OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
 
 	// Hacks - To be removed later
-	Object *sun = universe->find("Sol");
-	if (sun != nullptr) {
+	Object *obj = universe->find("Sol");
+	if (obj != nullptr) {
 //		cout << "Star name: " << sun->getName() << endl << flush;
-		player->move(*sun);
-		player->look(*sun);
+		player->move(*obj);
+		player->look(*obj);
+		player->setSelectedObject(obj);
 	} else
 		cout << "Object 'Sol' not found" << endl << flush;
 }
