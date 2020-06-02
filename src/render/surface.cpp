@@ -11,10 +11,22 @@
 
 using namespace ofs::renderer;
 
-void Surface::createSphere(int level, int ilat, int ilng, int xGrids, int yGrids)
+// ******* Surface/terrain tile ********
+
+Tile::Tile(Surface &mgr, uint32_t lod, int32_t ilat, uint32_t ilng)
+: tmgr(mgr), lod(lod), ilat(ilat), ilng(ilng)
 {
-	int nlat = 1 << level;
-	int nlng = 2 << level;
+
+	tmgr.createEllipsoid(lod, ilat, ilng, 32, 32, mesh);
+}
+
+// ******** Surface/terrain manager ********
+
+void Surface::createEllipsoid(int lod, int ilat, int ilng, int xGrids, int yGrids,
+	Mesh &mesh)
+{
+	int nlat = 1 << lod;
+	int nlng = 2 << lod;
 
 	double mlat0 = PI * double(ilat) / double (nlat);
 	double mlat1 = PI * double(ilat+1) / double (nlat);
@@ -66,11 +78,6 @@ void Surface::createSphere(int level, int ilat, int ilng, int xGrids, int yGrids
 		}
 	}
 
-	Mesh *mesh = new Mesh();
-
-	delete [] vertices;
-	delete [] indices;
-	delete mesh;
-
-//	return mesh;
+	mesh.setVertices(nVertices, vertices);
+	mesh.setIndices(nIndices, indices);
 }

@@ -76,6 +76,14 @@ namespace ofs::renderer
 		void renderConstellations(const ofs::universe::Universe &universe,
 				const ofs::engine::Player &player);
 
+		// Rendering solar system function calls
+		void renderStar(const ofs::universe::CelestialStar *star,
+			vec3d_t opos, double dist, double appMag, double now);
+		void renderBody(const ofs::universe::CelestialBody *body,
+			vec3d_t opos, double dist, double appMag, double now);
+		void renderObjectEntry(const ObjectListEntry &ole);
+		void renderSolarSystemObjects();
+
 	private:
 		Context gl;
 

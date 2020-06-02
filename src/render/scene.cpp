@@ -87,5 +87,7 @@ void Scene::render(Player *player, Universe *universe)
 
 	renderStars(universe->getStarCatalog(), faintestMagnitude);
 
+	renderSolarSystemObjects();
+
 	gl.finish();
 }

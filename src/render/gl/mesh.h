@@ -13,6 +13,9 @@ public:
 	Mesh();
 	~Mesh();
 
+	void setVertices(int nVertices, vec3d_t *vertices);
+	void setIndices(int nIndices, uint16_t *indices);
+
 private:
 	int       nVertices = 0;
 	int       nIndices = 0;

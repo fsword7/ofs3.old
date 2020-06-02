@@ -16,6 +16,7 @@ set (ofs_cpp_srcs
 	render/starcolors.cpp
 	render/stars.cpp
 	render/surface.cpp
+	render/system.cpp
 	universe/asterisms.cpp
 	universe/astro.cpp
 	universe/body.cpp

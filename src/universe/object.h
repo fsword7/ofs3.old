@@ -69,6 +69,8 @@ namespace ofs::universe
 		{
 		}
 
+		ofs::renderer::Surface *getSurface() const { return surface; }
+
 	private:
 		CelestialType cbType = cbUnknown;
 
