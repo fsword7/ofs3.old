@@ -12,6 +12,8 @@
 
 namespace ofs::universe
 {
+	using Object = ofs::engine::Object;
+
 	enum SpectralClass
 	{
 		starSpectral_Unknown = 0,

@@ -14,6 +14,8 @@
 
 namespace ofs::renderer
 {
+	using Object = ofs::engine::Object;
+
 	class Surface;
 
 	class Tile : public Tree<Tile, QTREE_NODES>

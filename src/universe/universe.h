@@ -13,6 +13,8 @@
 
 namespace ofs::universe
 {
+	using Object = ofs::engine::Object;
+
 	class Universe
 	{
 	public:
