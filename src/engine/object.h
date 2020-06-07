@@ -28,10 +28,15 @@ public:
 		{ return idx >= 0 && idx < objNames.size() ? objNames[idx] : ""; }
 
 	inline double getGeometryRadius() const { return geomRadius; }
+	inline double getCullingRadius() const { return cullRadius; }
+	inline double getOrbitalRadius() const { return orbitRadius; }
 
 	inline vec3d_t getGlobalPosition(double t = 0) const { return objPosition; }
 	inline vec3d_t getLocalPosition(double t = 0) const { return objPosition; }
 	inline quatd_t getOrientation(double t = 0) const { return objOrientation; }
+
+protected:
+	virtual void computeCullingRadius() = 0;
 
 private:
 	ObjectType objType;
@@ -41,5 +46,7 @@ protected:
 	vec3d_t objPosition    = { 0, 0, 0 };
 	quatd_t objOrientation = { 1, 0, 0, 0 };
 
-	double geomRadius = 0.0;
+	double geomRadius  = 0.0;
+	double cullRadius  = 0.0;
+	double orbitRadius = 0.0;
 };

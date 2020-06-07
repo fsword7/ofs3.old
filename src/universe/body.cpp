@@ -15,3 +15,8 @@ using namespace ofs::renderer;
 //{
 //	surface.init(gl);
 //}
+
+void CelestialBody::computeCullingRadius()
+{
+	cullRadius = geomRadius;
+}

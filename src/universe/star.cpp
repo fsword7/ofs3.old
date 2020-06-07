@@ -16,6 +16,8 @@ CelestialStar *CelestialStar::createSun()
 {
  	CelestialStar *star = new CelestialStar("Sol");
 
+	star->hipNumber		= 0;
+
 	star->ra			= 0.0;
 	star->dec			= 0.0;
 	star->plx			= 0.0;
@@ -28,8 +30,7 @@ CelestialStar *CelestialStar::createSun()
 
 	star->knownFlags	= csKnownRadius;
 	star->geomRadius	= SOLAR_RADIUS;
-
-	star->hipNumber		= 0;
+	star->computeCullingRadius();
 
 	return star;
 }
@@ -53,6 +54,8 @@ CelestialStar *CelestialStar::create(double ra, double dec, double plx, double p
 	star->ci  = ci;
 	star->lum = lum;
 	star->temp = temp;
+
+//	star->computeCullingRadius();
 
 	return star;
 }

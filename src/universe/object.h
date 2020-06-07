@@ -73,6 +73,9 @@ namespace ofs::universe
 
 //		void initSurface(Context &gl) const;
 
+	protected:
+		void computeCullingRadius() override;
+
 	private:
 		CelestialType cbType = cbUnknown;
 
