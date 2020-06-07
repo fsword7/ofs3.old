@@ -25,8 +25,11 @@ namespace ofs::engine
 		PlayerFrame() = default;
 		~PlayerFrame() = default;
 
+		void set(FrameType type, const Object *object, const Object *target);
+
 	private:
 		FrameType  type = frameEcliptic;
+		ReferenceFrame *frame = nullptr;
 	};
 
 	class Player // : public Object
@@ -70,6 +73,9 @@ namespace ofs::engine
 
 		void updateUniversal();
 		void update(double dt);
+
+		void setFrame(PlayerFrame::FrameType type, const Object *object,
+			const Object *target);
 
 		void move(const Object &obj, double dist = 0);
 		void follow(const Object &obj);

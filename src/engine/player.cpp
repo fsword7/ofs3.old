@@ -10,6 +10,15 @@
 
 using namespace ofs::engine;
 
+// ******** PlayerFrame ********
+
+void PlayerFrame::set(FrameType type, const Object *object, const Object *target)
+{
+	this->type = type;
+}
+
+// ******** Player ********
+
 void Player::setPlayerAngularVelocity(vec3d_t av)
 {
 	pav = av;
@@ -34,8 +43,18 @@ void Player::setTravelSpeed(double ts)
 
 void Player::updateUniversal()
 {
-	upos = lpos; // frame->toGlobalSpace(lpos, nowTime);
-	urot = lrot; // frame->toGlobalSpace(lrot, nowTime);
+	upos = lpos; // frame.toGlobalSpace(lpos, nowTime);
+	urot = lrot; // frame.toGlobalSpace(lrot, nowTime);
+}
+
+void Player::setFrame(PlayerFrame::FrameType type, const Object *object,
+	const Object *target)
+{
+	frame.set(type, object, target);
+
+	// Reset local position and orientation
+	lpos = upos; // frame.fromGlobalSpace(upos, nowTime);
+	lrot = urot; // frame.fromGlobalSpace(urot, nowTime);
 }
 
 void Player::update(double dt)
