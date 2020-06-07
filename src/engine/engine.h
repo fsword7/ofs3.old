@@ -11,11 +11,11 @@
 #include "universe/universe.h"
 #include "render/scene.h"
 
-using namespace ofs::renderer;
-using namespace ofs::universe;
-
 namespace ofs::engine
 {
+	using Scene = ofs::renderer::Scene;
+	using Universe = ofs::universe::Universe;
+
 	class Engine
 	{
 	public:

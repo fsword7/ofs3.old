@@ -9,10 +9,11 @@
 
 #include "engine/engine.h"
 
-using namespace ofs::engine;
-
 namespace ofs
 {
+	using Engine = ofs::engine::Engine;
+	using Player = ofs::engine::Player;
+
 	class CoreApp
 	{
 	public:

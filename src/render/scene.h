@@ -26,6 +26,12 @@
 
 namespace ofs::renderer
 {
+	using Player = ofs::engine::Player;
+	using CelestialStar = ofs::universe::CelestialStar;
+	using CelestialBody = ofs::universe::CelestialBody;
+	using StarCatalog = ofs::universe::StarCatalog;
+	using Universe = ofs::universe::Universe;
+
 	class StarRenderer;
 	class Camera;
 
@@ -61,26 +67,25 @@ namespace ofs::renderer
 
 		Camera *getCamera(int idx = 0);
 
-		void init(const ofs::universe::Universe &universe, int width, int height);
+		void init(const Universe &universe, int width, int height);
 		void resize(int width, int height);
-		void render(ofs::engine::Player *player, ofs::universe::Universe *universe);
+		void render(Player *player, Universe *universe);
 
 	private:
 		void initStarRenderer();
-		void initConstellations(const ofs::universe::Universe &universe);
+		void initConstellations(const Universe &universe);
 		void initLightSources();
 
 //		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
 		uint16_t *buildGaussGlareStar(uint32_t log2Size, double scale, double base);
 
-		void renderStars(const ofs::universe::StarCatalog &stardb, double faintest);
-		void renderConstellations(const ofs::universe::Universe &universe,
-				const ofs::engine::Player &player);
+		void renderStars(const StarCatalog &stardb, double faintest);
+		void renderConstellations(const Universe &universe, const Player &player);
 
 		// Rendering solar system function calls
-		void renderStar(const ofs::universe::CelestialStar *star,
+		void renderStar(const CelestialStar *star,
 			vec3d_t opos, double dist, double zCenter, double appMag, double now);
-		void renderBody(const ofs::universe::CelestialBody *body,
+		void renderBody(const CelestialBody *body,
 			vec3d_t opos, double dist, double zCenter, double appMag, double now);
 		void renderObjectEntry(const ObjectListEntry &ole);
 		void renderSolarSystemObjects();
@@ -91,7 +96,7 @@ namespace ofs::renderer
 		vector<Camera *> views;
 
 		vector<ObjectListEntry> objectList;
-		vector<const ofs::universe::CelestialStar *> closeStars;
+		vector<const CelestialStar *> closeStars;
 
 		Camera *cam = nullptr;
 		RenderParameter prm;
