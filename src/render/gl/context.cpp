@@ -21,11 +21,6 @@ void Context::finish()
 
 }
 
-void Context::setColor(Color color)
-{
-	glColor4f(color.red, color.green, color.blue, color.alpha);
-}
-
 void Context::setViewport(int width, int height)
 {
 	glViewport(0, 0, width, height);

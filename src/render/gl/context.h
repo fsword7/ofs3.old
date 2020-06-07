@@ -28,7 +28,6 @@ public:
 	void start();
 	void finish();
 
-	void setColor(Color color);
 	void setViewport(int width, int height);
 	void setPolygonMode(PolygonMode mode);
 	void enableBlend();
