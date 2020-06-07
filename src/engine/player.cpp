@@ -15,9 +15,62 @@ using namespace ofs::engine;
 void PlayerFrame::set(FrameType type, const Object *object, const Object *target)
 {
 	this->type = type;
+
+	if (frame != nullptr)
+//		frame->release();
+		delete frame;
+
+	switch (type)
+	{
+	case frameUniversal:
+		frame = nullptr;
+		break;
+//	case frameEcliptical:
+//		frame = new J2000EclipticFrame(object, nullptr);
+//		break;
+	}
+}
+
+vec3d_t PlayerFrame::fromUniversal(const vec3d_t &pos, double now)
+{
+	if (frame == nullptr)
+		return pos;
+	return frame->fromUniversal(pos, now);
+}
+
+quatd_t PlayerFrame::fromUniversal(const quatd_t &rot, double now)
+{
+	if (frame == nullptr)
+		return rot;
+	return frame->fromUniversal(rot, now);
+}
+
+vec3d_t PlayerFrame::toUniversal(const vec3d_t &pos, double now)
+{
+	if (frame == nullptr)
+		return pos;
+	return frame->toUniversal(pos, now);
+}
+
+quatd_t PlayerFrame::toUniversal(const quatd_t &rot, double now)
+{
+	if (frame == nullptr)
+		return rot;
+	return frame->toUniversal(rot, now);
 }
 
 // ******** Player ********
+
+Player::Player()
+// : Object("(Player)", objPlayer) {}
+{
+	frame.set(PlayerFrame::frameUniversal, nullptr, nullptr);
+}
+
+Player::~Player()
+{
+//	releaseFrame();
+}
 
 void Player::setPlayerAngularVelocity(vec3d_t av)
 {
@@ -43,8 +96,8 @@ void Player::setTravelSpeed(double ts)
 
 void Player::updateUniversal()
 {
-	upos = lpos; // frame.toGlobalSpace(lpos, nowTime);
-	urot = lrot; // frame.toGlobalSpace(lrot, nowTime);
+	upos = frame.toUniversal(lpos, nowTime);
+	urot = frame.toUniversal(lrot, nowTime);
 }
 
 void Player::setFrame(PlayerFrame::FrameType type, const Object *object,
@@ -53,8 +106,8 @@ void Player::setFrame(PlayerFrame::FrameType type, const Object *object,
 	frame.set(type, object, target);
 
 	// Reset local position and orientation
-	lpos = upos; // frame.fromGlobalSpace(upos, nowTime);
-	lrot = urot; // frame.fromGlobalSpace(urot, nowTime);
+	lpos = frame.fromUniversal(upos, nowTime);
+	lrot = frame.fromUniversal(urot, nowTime);
 }
 
 void Player::update(double dt)
@@ -90,8 +143,8 @@ void Player::move(const Object &obj, double dist)
 	urot = orot;
 
 	// Convert global coordinates to local coordinates.
-	lpos = upos; // frame->fromGlobalSpace(upos, nowTime);
-	lrot = urot; // frame->fromGlobalSpace(urot, nowTime);
+	lpos = frame.fromUniversal(upos, nowTime);
+	lrot = frame.fromUniversal(urot, nowTime);
 }
 
 void Player::follow(const Object &obj)
@@ -106,7 +159,7 @@ void Player::look(const Object &obj)
 	vec3d_t up   = vec3d_t(0, 1, 0);
 
 	urot = glm::lookAt(upos, opos, up);
-	lrot = urot; // frame->fromGlobalSpace(urot, nowTime);
+	lrot = frame.fromUniversal(urot, nowTime);
 }
 
 void Player::orbit(quatd_t rot)

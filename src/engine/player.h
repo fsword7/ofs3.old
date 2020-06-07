@@ -15,7 +15,8 @@ namespace ofs::engine
 	{
 	public:
 		enum FrameType {
-			frameEcliptic,
+			frameUniversal,
+			frameEcliptical,
 			frameEquatorial,
 			frameFrontHelioSync,
 			frameBackHelioSync,
@@ -27,8 +28,13 @@ namespace ofs::engine
 
 		void set(FrameType type, const Object *object, const Object *target);
 
+		vec3d_t fromUniversal(const vec3d_t &pos, double now);
+		quatd_t fromUniversal(const quatd_t &rot, double now);
+		vec3d_t toUniversal(const vec3d_t &pos, double now);
+		quatd_t toUniversal(const quatd_t &rot, double now);
+
 	private:
-		FrameType  type = frameEcliptic;
+		FrameType  type = frameUniversal;
 		ReferenceFrame *frame = nullptr;
 	};
 
@@ -39,9 +45,8 @@ namespace ofs::engine
 			tvFree
 		};
 
-//		Player() : Object("(Player)", objPlayer) {}
-		Player() = default;
-		~Player() = default;
+		Player();
+		~Player();
 
 		// Getters
 		inline double  getCurrentTime() const { return nowTime; }
