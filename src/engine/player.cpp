@@ -10,10 +10,16 @@
 
 using namespace ofs::engine;
 
-void Player::setAngularVelocity(vec3d_t _av)
+void Player::setPlayerAngularVelocity(vec3d_t av)
 {
-	av = _av;
-	wv = quatd_t(0, av.x, av.y, av.z);
+	pav = av;
+	pwv = quatd_t(0, pav.x, pav.y, pav.z);
+}
+
+void Player::setOrbitalAngularVelocity(vec3d_t av)
+{
+	oav = av;
+	owv = quatd_t(0, oav.x, oav.y, oav.z);
 }
 
 void Player::setTravelVelocity(vec3d_t _tv)
@@ -42,7 +48,7 @@ void Player::update(double dt)
 		//      dq/dt = q * w * t/2
 		//		w = (0, x, y, z)
 		//
-		lrot += lrot * wv * (dt / 2.0);
+		lrot += lrot * pwv * (dt / 2.0);
 		lrot  = glm::normalize(lrot);
 		lpos -= lrot * tv * dt;
 	}
@@ -82,4 +88,19 @@ void Player::look(const Object &obj)
 
 	urot = glm::lookAt(upos, opos, up);
 	lrot = urot; // frame->fromGlobalSpace(urot, nowTime);
+}
+
+void Player::orbit(quatd_t rot)
+{
+	const Object *center = nullptr;
+	if (center == nullptr)
+		return;
+
+	double dist  = glm::length(lpos);
+	quatd_t qrot = glm::normalize(lrot * rot * glm::conjugate(lrot));
+
+	lpos = glm::normalize(glm::conjugate(qrot) * lpos) * dist;
+	lrot = glm::conjugate(qrot) * lrot;
+
+	updateUniversal();
 }

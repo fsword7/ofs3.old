@@ -68,30 +68,31 @@ void CoreApp::update()
 	Player *player = engine->getPlayer();
 
 	double  dt = 0.01;
-	vec3d_t av, tv;
+	vec3d_t pav, oav, tv;
 
-//	dt = jdate->update();
-	av = player->getAngularVelocity();
-	tv = player->getTravelVelocity();
+//	dt  = jdate->update();
+	pav = player->getPlayerAngularVelocity();
+	oav = player->getOrbitalAngularVelocity();
+	tv  = player->getTravelVelocity();
 
 	// Keyboard rotation and travel control
 	// X-axis rotation control
 	if (stateKey[keyPad8])
-		av += vec3d_t(dt * keyRotationAccel, 0, 0);
+		pav += vec3d_t(dt * keyRotationAccel, 0, 0);
 	if (stateKey[keyPad2])
-		av += vec3d_t(dt * -keyRotationAccel, 0, 0);
+		pav += vec3d_t(dt * -keyRotationAccel, 0, 0);
 
 	// Y-axis rotation control
 	if (stateKey[keyPad4])
-		av += vec3d_t(0, dt * keyRotationAccel, 0);
+		pav += vec3d_t(0, dt * keyRotationAccel, 0);
 	if (stateKey[keyPad6])
-		av += vec3d_t(0, dt * -keyRotationAccel, 0);
+		pav += vec3d_t(0, dt * -keyRotationAccel, 0);
 
 	// Z-axis rotation control
 	if (stateKey[keyPad7])
-		av += vec3d_t(0, 0, dt * -keyRotationAccel);
+		pav += vec3d_t(0, 0, dt * -keyRotationAccel);
 	if (stateKey[keyPad9])
-		av += vec3d_t(0, 0, dt * keyRotationAccel);
+		pav += vec3d_t(0, 0, dt * keyRotationAccel);
 
 	// Travel velocity control
 	// X-axis move control
@@ -115,11 +116,12 @@ void CoreApp::update()
 	// Braking velocity control
 	if (stateKey[keyPad5])
 	{
-		av *= exp(-dt * keyRotationBrake);
-		tv *= exp(-dt * keyTravelBrake);
+		pav *= exp(-dt * keyRotationBrake);
+		tv  *= exp(-dt * keyTravelBrake);
 	}
 
-	player->setAngularVelocity(av);
+	player->setPlayerAngularVelocity(pav);
+	player->setOrbitalAngularVelocity(oav);
 	player->setTravelVelocity(tv);
 	engine->update(dt);
 }
