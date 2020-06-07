@@ -3,6 +3,7 @@ set (ofs_cpp_srcs
 	engine/frame.cpp
 	engine/object.cpp
 	engine/player.cpp
+	engine/time.cpp
 	main/sdl2/main.cpp
 	main/coreapp.cpp
 	render/gl/buffer.cpp
@@ -35,6 +36,7 @@ set (ofs_h_srcs
 	engine/frame.h
 	engine/object.h
 	engine/player.h
+	engine/time.h
 	main/sdl2/coreapp.h
 	main/core.h
 	main/coreapp.h
