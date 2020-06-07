@@ -59,7 +59,7 @@ void Player::move(const Object &obj, double dist)
 
 	orot = obj.getOrientation(nowTime);
 	if (dist <= obj.getGeometryRadius())
-		dist = obj.getGeometryRadius() * 3.0;
+		dist = obj.getGeometryRadius() * 6.0;
 
 	upos = opos + glm::conjugate(orot) * vec3d_t(0, 0, dist);
 	urot = orot;

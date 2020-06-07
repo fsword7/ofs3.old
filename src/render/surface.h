@@ -8,7 +8,9 @@
 #pragma once
 
 #include "render/gl/mesh.h"
+#include "render/renderprm.h"
 #include "util/tree.h"
+#include "engine/object.h"
 
 namespace ofs::renderer
 {
@@ -19,6 +21,9 @@ namespace ofs::renderer
 	public:
 		Tile(Surface &mgr, uint32_t lod, int32_t ilat, uint32_t ilng);
 		~Tile() = default;
+
+		void update();
+		void render(Context &gl);
 
 	private:
 		Surface &tmgr;
@@ -34,21 +39,34 @@ namespace ofs::renderer
 
 	public:
 		enum AppearanceFlags {
-			afEmissive = 0x0001
+			appEmissive = 0x00000001,
+			appInvalid  = 0x80000000
 		};
 
-		Surface() = default;
+		inline bool isInvalid() const { return flags & appInvalid; }
+
+		Surface(const Object &obj) : object(obj) {}
 		~Surface() = default;
 
+		void init(Context &gl);
+		void clear();
+
+		void render(Context &gl, const vec3d_t &opos, double zCenter, const RenderParameter &prm);
+
+	private:
 		void createEllipsoid(int level, int ilat, int ilng, int xGrids, int yGrids,
 			Mesh &mesh);
 
 	public:
-		uint32_t flags = 0;
+		// Surface information properties
+		uint32_t flags = appInvalid;
 		Color    color = Color(1, 1, 1);
 
 	private:
+		const Object &object;
 		Color defaultColor = Color(1, 1, 1);
+
+		ShaderProgram *pgm = nullptr;
 
 		Tile *rootTiles[2] = { nullptr, nullptr };
 	};

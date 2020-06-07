@@ -234,11 +234,14 @@ ShaderProgram *ShaderManager::buildPrograms(const string &name)
 			srcFile.read(&pgmSource[0], srcSize);
 			srcFile.close();
 
+			cout << pgmSource << "\nSize: " << pgmSource.size() << endl;
+
 			ShaderSource *shader = ShaderSource::create(pgmType);
 			if (shader != nullptr) {
 				vector<string> sourcev;
 				string log;
 
+				cout << "File length: " << srcSize << endl;
 				shader->dump(cout, pgmFile, pgmSource);
 
 				sourcev.push_back(pgmSource);

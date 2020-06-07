@@ -74,12 +74,19 @@ void Scene::render(Player *player, Universe *universe)
 	prm.crot = prm.prot * cam->getOffsetOrientation();
 	prm.vpnorm = prm.crot * vec3d_t(0, 0, -1);
 
+	prm.fov = cam->getFOVY();
+	prm.aspect = cam->getAspect();
+
 	// Clear all current lists each frame
 	objectList.clear();
 	closeStars.clear();
 
 	// Find closest stars within one yearlight range
 	universe->findCloseStars(prm.cpos, 1.0, closeStars);
+
+	// Initialize light sources each frame
+	if (closeStars.size() > 0)
+		initLightSources();
 
 	gl.start();
 

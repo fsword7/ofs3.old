@@ -9,3 +9,9 @@
 #include "universe/object.h"
 
 using namespace ofs::universe;
+using namespace ofs::renderer;
+
+//void CelestialBody::initSurface(Context &gl)
+//{
+//	surface.init(gl);
+//}

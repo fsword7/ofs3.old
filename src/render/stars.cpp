@@ -57,6 +57,17 @@ void Scene::initConstellations(const Universe &universe)
 	}
 }
 
+void Scene::initLightSources()
+{
+	for (int idx = 0; idx < closeStars.size(); idx++)
+	{
+		// initialize star surface if star is enough close.
+//		closeStars[idx]->initSurface(gl);
+	}
+}
+
+// ******** StarRenderer ********
+
 void StarRenderer::process(const CelestialStar *star, double dist, double appMag) const
 {
 	vec3d_t spos, rpos;
@@ -116,7 +127,7 @@ void StarRenderer::process(const CelestialStar *star, double dist, double appMag
 		ole.radius	  = star->getGeometryRadius();
 		ole.pixelSize = objSize;
 		ole.appMag    = appMag;
-		ole.zCenter   = glm::dot(ole.position, view[2]);
+		ole.zCenter   = -glm::dot(ole.position, view[2]);
 		ole.isOpague  = true;
 
 		objectList->push_back(ole);

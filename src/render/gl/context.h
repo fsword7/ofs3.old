@@ -14,6 +14,12 @@
 class Context
 {
 public:
+	enum PolygonMode
+	{
+		modeWireframe,
+		modeFill
+	};
+
 	Context() : smgr(*this) {}
 	~Context() = default;
 
@@ -22,7 +28,9 @@ public:
 	void start();
 	void finish();
 
+	void setColor(Color color);
 	void setViewport(int width, int height);
+	void setPolygonMode(PolygonMode mode);
 	void enableBlend();
 	void disableBlend();
 

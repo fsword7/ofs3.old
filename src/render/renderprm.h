@@ -23,6 +23,9 @@ struct RenderParameter
 	quatd_t crot;   // Current camera orientation (vessel reference frame)
 	vec3d_t vpnorm; // view normal (clipping)
 
+	double  fov;
+	double  aspect;
+
 	mat4d_t dmProj;
 	mat4d_t dmView;
 };

@@ -65,17 +65,19 @@ namespace ofs::universe
 		};
 
 		CelestialBody(const string &name, CelestialType type)
-		: Object(name, objCelestial), cbType(type)
+		: Object(name, objCelestial), cbType(type), surface(*this)
 		{
 		}
 
-		ofs::renderer::Surface *getSurface() const { return surface; }
+		ofs::renderer::Surface &getSurface() const { return surface; }
+
+//		void initSurface(Context &gl) const;
 
 	private:
 		CelestialType cbType = cbUnknown;
 
 	protected:
-		ofs::renderer::Surface *surface = nullptr;
+		mutable ofs::renderer::Surface surface;
 
 	};
 

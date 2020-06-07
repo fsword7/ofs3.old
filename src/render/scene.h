@@ -68,6 +68,7 @@ namespace ofs::renderer
 	private:
 		void initStarRenderer();
 		void initConstellations(const ofs::universe::Universe &universe);
+		void initLightSources();
 
 //		void buildGaussDiscStar(uint32_t log2Size, double scale, double base);
 		uint16_t *buildGaussGlareStar(uint32_t log2Size, double scale, double base);
@@ -78,9 +79,9 @@ namespace ofs::renderer
 
 		// Rendering solar system function calls
 		void renderStar(const ofs::universe::CelestialStar *star,
-			vec3d_t opos, double dist, double appMag, double now);
+			vec3d_t opos, double dist, double zCenter, double appMag, double now);
 		void renderBody(const ofs::universe::CelestialBody *body,
-			vec3d_t opos, double dist, double appMag, double now);
+			vec3d_t opos, double dist, double zCenter, double appMag, double now);
 		void renderObjectEntry(const ObjectListEntry &ole);
 		void renderSolarSystemObjects();
 
