@@ -24,7 +24,7 @@ namespace ofs::engine
 		};
 
 		PlayerFrame() = default;
-		~PlayerFrame() = default;
+		~PlayerFrame();
 
 		void set(FrameType type, const Object *object, const Object *target);
 
@@ -35,7 +35,7 @@ namespace ofs::engine
 
 	private:
 		FrameType  type = frameUniversal;
-		ReferenceFrame *frame = nullptr;
+		Frame     *frame = nullptr;
 	};
 
 	class Player // : public Object

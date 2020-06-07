@@ -12,22 +12,27 @@ using namespace ofs::engine;
 
 // ******** PlayerFrame ********
 
+PlayerFrame::~PlayerFrame()
+{
+	if (frame != nullptr)
+		frame->release();
+}
+
 void PlayerFrame::set(FrameType type, const Object *object, const Object *target)
 {
 	this->type = type;
 
 	if (frame != nullptr)
-//		frame->release();
-		delete frame;
+		frame->release();
 
 	switch (type)
 	{
 	case frameUniversal:
 		frame = nullptr;
 		break;
-//	case frameEcliptical:
-//		frame = new J2000EclipticFrame(object, nullptr);
-//		break;
+	case frameEcliptical:
+		frame = new J2000EclipticFrame(object);
+		break;
 	}
 }
 
@@ -69,7 +74,6 @@ Player::Player()
 
 Player::~Player()
 {
-//	releaseFrame();
 }
 
 void Player::setPlayerAngularVelocity(vec3d_t av)

@@ -11,14 +11,23 @@ namespace ofs::engine
 {
 	class Object;
 
-	class ReferenceFrame
+	class Frame
 	{
 	public:
-		ReferenceFrame() = default;
-		virtual ~ReferenceFrame() = default;
+		Frame(const Object *object, const Frame *parent = nullptr);
+	protected:
+		virtual ~Frame() = default;
 
-		inline bool isRoot() const       { return parent == nullptr; }
-		inline Object *getCenter() const { return center; }
+	public:
+		int lock() const;
+		int release() const;
+
+		inline bool isRoot() const                 { return parent == nullptr; }
+		inline const Object *getCenter() const     { return center; }
+		inline const Frame *getParentFrame() const { return parent; }
+		inline string getFrameName() const         { return frameName; }
+
+		virtual quatd_t getOrientation(double now) const = 0;
 
 		vec3d_t fromAstrocentric(const vec3d_t &pos, double now);
 		vec3d_t toAstrocentric(const vec3d_t &pos, double now);
@@ -29,9 +38,15 @@ namespace ofs::engine
 		quatd_t toUniversal(const quatd_t &rot, double now);
 
 	protected:
-		ReferenceFrame *parent = nullptr;
-		Object         *center = nullptr;
+		const Frame  *parent   = nullptr;
+		const Object *center   = nullptr;
+		string        frameName;
+
+	private:
+		mutable int refCount = 0;
 	};
+
+	using ReferenceFrame = Frame;
 
 	class CachingFrame : public ReferenceFrame
 	{
@@ -40,5 +55,17 @@ namespace ofs::engine
 		~CachingFrame() = default;
 
 	private:
+	};
+
+	class J2000EclipticFrame : public ReferenceFrame
+	{
+	public:
+		J2000EclipticFrame(const Object *obj, const Frame *parent = nullptr);
+		~J2000EclipticFrame() = default;
+
+		quatd_t getOrientation(double) const override
+		{
+			return quatd_t(1,0,0,0);
+		}
 	};
 }
