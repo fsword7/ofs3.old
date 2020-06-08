@@ -28,8 +28,11 @@ void CoreApp::init()
 
 void CoreApp::initEngine()
 {
+	width  = OFS_DEFAULT_WIDTH;
+	height = OFS_DEFAULT_HEIGHT;
+
 	engine = new Engine();
-	engine->init();
+	engine->init(width, height);
 }
 
 void CoreApp::clean()
@@ -37,10 +40,80 @@ void CoreApp::clean()
 	delete engine;
 }
 
-void CoreApp::resize(int width, int height)
+void CoreApp::resize(uint32_t w, uint32_t h)
 {
-	engine->resize(width, height);
+	width  = w;
+	height = h;
+	engine->resize(w, h);
 }
+
+// ******** Mouse Control Routines ********
+
+void CoreApp::mouseMove(float x, float y, int state)
+{
+	using Camera = ofs::renderer::Camera;
+	using Scene = ofs::renderer::Scene;
+
+	float dx = x - lastX;
+	float dy = y - lastY;
+
+	Player *player = engine->getPlayer();
+	Scene *scene = engine->getScene();
+
+	// Rotate camera around
+	if (state & mouseRightButton) {
+//		if (checkAnyFlags(state, keyControl)) {
+//			double dzoom = dy / height;
+//			player->dolly(dzoom * 5);
+//		} else {
+			Camera *cam = scene->getCamera();
+			double fov  = cam->getFOVY();
+
+//			double coarseness = player->computeCoarseness(1.5);
+			double coarseness = glm::degrees(fov) / 30.0;
+
+			quatd_t rot = xrot(dy / height * coarseness) * yrot(dx / width * coarseness);
+			player->orbit(rot);
+//		}
+	} else if (state & mouseLeftButton) {
+		Camera *cam = scene->getCamera();
+		double fov  = cam->getFOVY();
+
+		double coarseness = glm::degrees(fov) / 30.0;
+
+		quatd_t rot = xrot(dy / height * coarseness) * yrot(dx / width * coarseness);
+		player->rotate(rot);
+	}
+
+	// Save current mouse motion for next event.
+	lastX = x;
+	lastY = y;
+}
+
+void CoreApp::mousePressButtonDown(float x, float y, int state)
+{
+}
+
+void CoreApp::mousePressButtonUp(float x, float y, int state)
+{
+//	View *view = nullptr;
+//	float vx = 0.0f, vy = 0.0f;
+//
+//	if (state & mouseLeftButton) {
+//		view = pickView(x, y);
+//		if (view != nullptr)
+//			view->map(x/float(width), y/float(height), vx, vy);
+//
+//		vec3d_t ray = player->getRay(vx, vy);
+//
+//	}
+}
+
+void CoreApp::mouseDialWheel(float motion)
+{
+}
+
+// ******** Keyboard Control Routines ********
 
 void CoreApp::keyPress(keyCode code, int modifiers, bool down)
 {

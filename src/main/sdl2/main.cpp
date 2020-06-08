@@ -66,6 +66,11 @@ void sdlCoreApp::closeScreen()
 	SDL_Quit();
 }
 
+void sdlCoreApp::display(const string &title)
+{
+	SDL_SetWindowTitle(dWindow, title.c_str());
+}
+
 void sdlCoreApp::pressKeyEvent(SDL_KeyboardEvent *key, bool down)
 {
 //	using namespace ofs;
@@ -126,9 +131,13 @@ void sdlCoreApp::pressKeyEvent(SDL_KeyboardEvent *key, bool down)
 
 void sdlCoreApp::run()
 {
-	bool running = true;
-	int w, h;
+	bool  running = true;
+	int   w, h;
+	int   mx, my, lx, ly;
+	float vx = 0.0f, vy = 0.0f;
+	int   state;
 	uint16_t mod;
+	string title;
 
 	while (running)
 	{
@@ -150,14 +159,118 @@ void sdlCoreApp::run()
 				}
 				break;
 
+			// Handling joystick events
+
+			// Handling mouse events
+			case SDL_MOUSEMOTION:
+				mx = event.motion.x;
+				my = event.motion.y;
+
+				state = 0;
+				if (event.motion.state & SDL_BUTTON_LMASK)
+					state |= mouseLeftButton;
+				if (event.motion.state & SDL_BUTTON_MMASK)
+					state |= mouseMiddleButton;
+				if (event.motion.state & SDL_BUTTON_RMASK)
+					state |= mouseRightButton;
+				if (mod & KMOD_CTRL)
+					state |= keyControl;
+				if (mod & KMOD_SHIFT)
+					state |= keyShift;
+				if (mod & KMOD_ALT)
+					state |= keyAlternate;
+
+//				if (views.size() > 0) {
+//					view = views[0];
+//					view->map(mx/float(width), my/float(height), vx, vy);
+//				}
+
+				title = fmt::sprintf("%s X: %d Y: %d (%f,%f) State: %c%c%c%c%c%c\n",
+					OFS_FULL_NAME, mx, my, vx, vy,
+					(state & mouseLeftButton   ? 'L' : '-'),
+					(state & mouseMiddleButton ? 'M' : '-'),
+					(state & mouseRightButton  ? 'R' : '-'),
+					(state & keyControl        ? 'C' : '-'),
+					(state & keyShift          ? 'S' : '-'),
+					(state & keyAlternate      ? 'A' : '-'));
+				display(title);
+
+				mouseMove(mx, my, state);
+				break;
+
+			case SDL_MOUSEBUTTONDOWN:
+				mx = event.motion.x;
+				my = event.motion.y;
+
+				state = 0;
+				if (event.motion.state & SDL_BUTTON_LMASK)
+					state |= mouseLeftButton;
+				if (event.motion.state & SDL_BUTTON_MMASK)
+					state |= mouseMiddleButton;
+				if (event.motion.state & SDL_BUTTON_RMASK)
+					state |= mouseRightButton;
+				if (mod & KMOD_CTRL)
+					state |= keyControl;
+				if (mod & KMOD_SHIFT)
+					state |= keyShift;
+				if (mod & KMOD_ALT)
+					state |= keyAlternate;
+
+				mousePressButtonDown(mx, my, state);
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				mx = event.motion.x;
+				my = event.motion.y;
+
+				state = 0;
+				if (event.motion.state & SDL_BUTTON_LMASK)
+					state |= mouseLeftButton;
+				if (event.motion.state & SDL_BUTTON_MMASK)
+					state |= mouseMiddleButton;
+				if (event.motion.state & SDL_BUTTON_RMASK)
+					state |= mouseRightButton;
+				if (mod & KMOD_CTRL)
+					state |= keyControl;
+				if (mod & KMOD_SHIFT)
+					state |= keyShift;
+				if (mod & KMOD_ALT)
+					state |= keyAlternate;
+
+				mousePressButtonUp(mx, my, state);
+				break;
+
+			case SDL_MOUSEWHEEL:
+				break;
+
 			// Handling keyboard events
 			case SDL_KEYDOWN:
+				mod = event.key.keysym.mod;
+
+//				state = 0;
+//				if (mod & KMOD_CTRL)
+//					state |= keyControl;
+//				if (mod & KMOD_SHIFT)
+//					state |= keyShift;
+//				if (mod & KMOD_ALT)
+//					state |= keyAlternate;
+
 				pressKeyEvent(&event.key, true);
-				mod = event.key.keysym.mod;
+
 				break;
+
 			case SDL_KEYUP:
-				pressKeyEvent(&event.key, false);
 				mod = event.key.keysym.mod;
+
+//				state = 0;
+//				if (mod & KMOD_CTRL)
+//					state |= keyControl;
+//				if (mod & KMOD_SHIFT)
+//					state |= keyShift;
+//				if (mod & KMOD_ALT)
+//					state |= keyAlternate;
+
+				pressKeyEvent(&event.key, false);
 				break;
 			}
 

@@ -188,10 +188,34 @@ void Player::look(const Object &obj)
 	lrot = frame.fromUniversal(urot, nowTime);
 }
 
-void Player::orbit(quatd_t rot)
+void Player::dolly(double delta)
 {
 	const Object *center = frame.getCenter();
 	if (center == nullptr)
+		return;
+
+	double radius = center->getGeometryRadius();
+	double dist   = glm::length(lpos);
+	double cdist  = dist - radius;
+	if (cdist < 0)
+		cdist = 0;
+
+	double ndist = exp(log(cdist) + delta);
+	lpos *= (ndist / cdist);
+
+	updateUniversal();
+}
+
+void Player::rotate(quatd_t rot)
+{
+	lpos = lpos * rot;
+
+	updateUniversal();
+}
+
+void Player::orbit(quatd_t rot)
+{
+	if (frame.getCenter() == nullptr)
 		return;
 
 	quatd_t qrot = glm::normalize(lrot * rot * glm::conjugate(lrot));

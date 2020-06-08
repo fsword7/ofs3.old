@@ -26,8 +26,8 @@ namespace ofs::engine
 		inline Scene *getScene() const { return scene; }
 		inline Universe *getUniverse() const { return universe; }
 
-		void init();
-		void resize(int width, int height);
+		void init(uint32_t width, uint32_t height);
+		void resize(uint32_t width, uint32_t height);
 		void update(double dt);
 		void render();
 

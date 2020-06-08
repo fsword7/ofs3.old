@@ -61,6 +61,23 @@ typedef glm::dmat4 mat4d_t;
 template <typename T> T square(T x) { return x * x; }
 template <typename T> T cube(T x)   { return x * x * x; }
 
+template <typename T> inline glm::tquat<T> xrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(cos(ang), sin(ang), 0, 0);
+}
+
+template <typename T> inline glm::tquat<T> yrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(cos(ang), 0, sin(ang), 0);
+}
+
+template <typename T> inline glm::tquat<T> zrot(T radians)
+{
+	T ang = radians * T(0.5); // half angle
+	return glm::tquat<T>(cos(ang), 0, 0, sin(ang));
+}
 
 // Four CC values for magic codes
 inline uint32_t FOURCC(uint8_t a, uint8_t b, uint8_t c, uint8_t d)

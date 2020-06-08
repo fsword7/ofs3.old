@@ -17,6 +17,7 @@ public:
 
 	void initScreen() override;
 	void closeScreen() override;
+	void display(const string &title) override;
 	void run() override;
 
 	void pressKeyEvent(SDL_KeyboardEvent *key, bool down);

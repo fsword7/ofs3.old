@@ -20,9 +20,13 @@ namespace ofs
 		enum mouseButton {
 			mouseLeftButton   = 0x01,
 			mouseMiddleButton = 0x02,
-			mouseRightButton  = 0x04,
-			mouseShiftKey     = 0x08,
-			mouseControlKey   = 0x10
+			mouseRightButton  = 0x04
+		};
+
+		enum keyControlCode {
+			keyShift       = 0x10,
+			keyControl     = 0x20,
+			keyAlternate   = 0x40
 		};
 
 		enum keyCode {
@@ -76,11 +80,18 @@ namespace ofs
 		virtual void clean();
 		virtual void update();
 		virtual void render();
-		virtual void resize(int width, int height);
+		virtual void resize(uint32_t width, uint32_t height);
 
 		virtual void initScreen() = 0;
 		virtual void closeScreen() = 0;
+		virtual void display(const string &title) = 0;
 		virtual void run() = 0;
+
+		// Mouse controls
+		void mouseMove(float x, float y, int state);
+		void mousePressButtonDown(float x, float y, int state);
+		void mousePressButtonUp(float x, float y, int state);
+		void mouseDialWheel(float motion);
 
 		// Keyboard controls
 		void keyPress(keyCode code, int modifiers, bool down);
@@ -97,6 +108,10 @@ namespace ofs
 		double	keyRotationBrake;
 		double	keyTravelAccel;
 		double	keyTravelBrake;
+
+		// Current screen dimsension
+		uint32_t width = 1;
+		uint32_t height = 1;
 
 		// mouse handle parameters
 		float lastX, lastY;

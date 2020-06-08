@@ -103,7 +103,9 @@ namespace ofs::engine
 		void follow(const Object &obj, FollowMode mode);
 		void look(const Object &obj);
 
+		void rotate(quatd_t rot);
 		void orbit(quatd_t rot);
+		void dolly(double delta);
 
 	private:
 		PlayerFrame frame;

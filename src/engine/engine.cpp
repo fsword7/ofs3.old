@@ -11,14 +11,14 @@
 using namespace ofs::engine;
 using namespace ofs::universe;
 
-void Engine::init()
+void Engine::init(uint32_t width, uint32_t height)
 {
 	player = new Player();
 	universe = new Universe();
 	scene = new Scene();
 
 	universe->init();
-	scene->init(*universe, OFS_DEFAULT_WIDTH, OFS_DEFAULT_HEIGHT);
+	scene->init(*universe, width, height);
 
 	// Hacks - To be removed later
 	Object *obj = universe->find("Sol");
@@ -32,7 +32,7 @@ void Engine::init()
 		cout << "Object 'Sol' not found" << endl << flush;
 }
 
-void Engine::resize(int width, int height)
+void Engine::resize(uint32_t width, uint32_t height)
 {
 	scene->resize(width, height);
 }
