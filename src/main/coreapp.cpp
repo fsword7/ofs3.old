@@ -173,22 +173,46 @@ void CoreApp::update()
 
 	// Travel velocity control
 	// X-axis move control
-	if (stateKey[keyLeft])
-		tv.x += dt * 3000.0;
-	if (stateKey[keyRight])
-		tv.x -= dt * 3000.0;
+//	if (stateKey[keyLeft])
+//		tv.x += dt * 3000.0;
+//	if (stateKey[keyRight])
+//		tv.x -= dt * 3000.0;
 
 	// Y-axis move control
-	if (stateKey[keyDown])
-		tv.y += dt * 3000.0;
-	if (stateKey[keyUp])
-		tv.y -= dt * 3000.0;
+//	if (stateKey[keyDown])
+//		tv.y += dt * 3000.0;
+//	if (stateKey[keyUp])
+//		tv.y -= dt * 3000.0;
 
 	// Z-axis move control
 	if (stateKey[keyPad3])
 		tv.z += dt * 3000.0;
 	if (stateKey[keyPad1])
 		tv.z -= dt * 3000.0;
+
+	// Keyboard dolly control
+	if (stateKey[keyHome])
+		player->dolly(-dt * 2.0);
+	if (stateKey[keyEnd])
+		player->dolly(dt * 2.0);
+
+	// Orbital X/Y-axis control
+	if (player->getReferenceObject() != nullptr)
+	{
+		quatd_t rot = quatd_t(1.0, 0.0, 0.0, 0.0);
+		double  coarse = 1;
+
+		if (stateKey[keyLeft])
+			rot *= yrot(-dt * keyRotationAccel * coarse);
+		if (stateKey[keyRight])
+			rot *= yrot(dt * keyRotationAccel * coarse);
+		if (stateKey[keyUp])
+			rot *= xrot(-dt * keyRotationAccel * coarse);
+		if (stateKey[keyDown])
+			rot *= xrot(dt * keyRotationAccel * coarse);
+
+		player->orbit(rot);
+	}
 
 	// Braking velocity control
 	if (stateKey[keyPad5])

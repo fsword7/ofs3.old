@@ -125,6 +125,9 @@ void sdlCoreApp::pressKeyEvent(SDL_KeyboardEvent *key, bool down)
 	case SDLK_UP:		code = keyUp;		break;
 	case SDLK_DOWN:		code = keyDown;		break;
 
+	case SDLK_HOME:		code = keyHome;		break;
+	case SDLK_END:		code = keyEnd;		break;
+
     default: // ASCII codes
     	ch = key->keysym.sym;
     	if ((down == false) || (ch & ~0xFF))

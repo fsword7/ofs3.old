@@ -80,6 +80,7 @@ namespace ofs::engine
 		inline double  getTravelSpeed()      { return tv.z; }
 
 		inline Object *getSelectedObject() const { return selectedObject; }
+		inline const Object *getReferenceObject() const { return frame.getCenter(); }
 
 		// Setters
 		inline void setCurrentTime(double t) { nowTime = t; }
