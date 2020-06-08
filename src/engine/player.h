@@ -45,6 +45,21 @@ namespace ofs::engine
 			tvFree
 		};
 
+		enum FollowMode {
+			fwEcliptic,
+			fwGeoSync,
+			fwHelioSync,
+			fwObjectSync
+		};
+
+		enum GoMode {
+			goEcliptic,
+			goGeoSync,
+			goFrontHelioSync,
+			goBackHelioSync,
+			goObjectSync
+		};
+
 		Player();
 		~Player();
 
@@ -82,8 +97,8 @@ namespace ofs::engine
 		void setFrame(PlayerFrame::FrameType type, const Object *object,
 			const Object *target);
 
-		void move(const Object &obj, double dist = 0);
-		void follow(const Object &obj);
+		void move(const Object &obj, GoMode mode, double dist = 0);
+		void follow(const Object &obj, FollowMode mode);
 		void look(const Object &obj);
 
 		void orbit(quatd_t rot);

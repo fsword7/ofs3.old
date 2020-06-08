@@ -24,7 +24,8 @@ void Engine::init()
 	Object *obj = universe->find("Sol");
 	if (obj != nullptr) {
 //		cout << "Star name: " << sun->getName() << endl << flush;
-		player->move(*obj);
+		player->move(*obj, Player::goEcliptic);
+		player->follow(*obj, Player::fwEcliptic);
 		player->look(*obj);
 		player->setSelectedObject(obj);
 	} else

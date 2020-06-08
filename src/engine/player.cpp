@@ -133,7 +133,7 @@ void Player::update(double dt)
 	updateUniversal();
 }
 
-void Player::move(const Object &obj, double dist)
+void Player::move(const Object &obj, GoMode mode, double dist)
 {
 	vec3d_t opos = obj.getGlobalPosition(nowTime);
 	vec3d_t tpos;
@@ -151,9 +151,15 @@ void Player::move(const Object &obj, double dist)
 	lrot = frame.fromUniversal(urot, nowTime);
 }
 
-void Player::follow(const Object &obj)
+void Player::follow(const Object &obj, FollowMode mode)
 {
-
+	switch(mode)
+	{
+	case fwEcliptic:
+	default:
+		frame.set(PlayerFrame::frameEcliptical, &obj, nullptr);
+		break;
+	}
 }
 
 void Player::look(const Object &obj)
