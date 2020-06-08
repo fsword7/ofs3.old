@@ -83,16 +83,10 @@ Player::~Player()
 {
 }
 
-void Player::setPlayerAngularVelocity(vec3d_t av)
+void Player::setAngularVelocity(vec3d_t vel)
 {
-	pav = av;
-	pwv = quatd_t(0, pav.x, pav.y, pav.z);
-}
-
-void Player::setOrbitalAngularVelocity(vec3d_t av)
-{
-	oav = av;
-	owv = quatd_t(0, oav.x, oav.y, oav.z);
+	av = vel;
+	wv = quatd_t(0, av.x, av.y, av.z);
 }
 
 void Player::setTravelVelocity(vec3d_t _tv)
@@ -131,18 +125,9 @@ void Player::update(double dt)
 		//      dq/dt = q * w * t/2
 		//		w = (0, x, y, z)
 		//
-		lrot += lrot * pwv * (dt / 2.0);
+		lrot += lrot * wv * (dt / 2.0);
 		lrot  = glm::normalize(lrot);
 		lpos -= lrot * tv * dt;
-
-//		if (frame.getCenter() != nullptr)
-//		{
-//			lorbit += lorbit * owv * (dt / 2.0);
-//			lorbit  = glm::normalize(lorbit);
-//
-//			lpos = glm::normalize(glm::conjugate(lorbit) * lpos) * glm::length(lpos);
-//			lrot = glm::conjugate(lorbit) * lrot;
-//		}
 	}
 
 	// Updating current universal coordinates

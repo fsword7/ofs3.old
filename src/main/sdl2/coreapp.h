@@ -20,6 +20,8 @@ public:
 	void display(const string &title) override;
 	void run() override;
 
+	void handleMouseWheelEvent(const SDL_MouseWheelEvent &event);
+
 	void pressKeyEvent(SDL_KeyboardEvent *key, bool down);
 
 private:

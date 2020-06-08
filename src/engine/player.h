@@ -75,10 +75,9 @@ namespace ofs::engine
 		inline vec3d_t getLocalPosition() const { return lpos; }
 		inline quatd_t getLocalOrientation() const { return lrot; }
 
-		inline vec3d_t getPlayerAngularVelocity()  { return pav; }
-		inline vec3d_t getOrbitalAngularVelocity() { return oav; }
-		inline vec3d_t getTravelVelocity()         { return tv; }
-		inline double  getTravelSpeed()            { return tv.z; }
+		inline vec3d_t getAngularVelocity()  { return av; }
+		inline vec3d_t getTravelVelocity()   { return tv; }
+		inline double  getTravelSpeed()      { return tv.z; }
 
 		inline Object *getSelectedObject() const { return selectedObject; }
 
@@ -86,8 +85,7 @@ namespace ofs::engine
 		inline void setCurrentTime(double t) { nowTime = t; }
 		inline void setRealTime(double t)    { realTime = t; }
 
-		void setPlayerAngularVelocity(vec3d_t av);
-		void setOrbitalAngularVelocity(vec3d_t av);
+		void setAngularVelocity(vec3d_t vel);
 		void setTravelVelocity(vec3d_t tv);
 		void setTravelSpeed(double ts);
 
@@ -124,13 +122,10 @@ namespace ofs::engine
 		// Local position { local coordinate system in reference frame )
 		vec3d_t lpos   = { 0.0, 0.0, 0.0 };
 		quatd_t lrot   = { 1.0, 0.0, 0.0, 0.0 };
-		quatd_t lorbit = { 1.0, 0.0, 0.0, 0.0 };
 
 		// Velocity control
-		vec3d_t	pav = { 0.0, 0.0, 0.0 };      // Player angular velocity
-		quatd_t pwv = { 1.0, 0.0, 0.0, 0.0 }; //    Quaternion control
-		vec3d_t oav = { 0.0, 0.0, 0.0 };      // Orbital angular velocity
-		quatd_t owv = { 1.0, 0.0, 0.0, 0.0 }; //    Quaternion control
-		vec3d_t	tv  = { 0.0, 0.0, 0.0 };      // Travel velocity
+		vec3d_t	av = { 0.0, 0.0, 0.0 };      // Player Angular velocity
+		quatd_t wv = { 1.0, 0.0, 0.0, 0.0 }; //    Quaternion control
+		vec3d_t	tv  = { 0.0, 0.0, 0.0 };     // Travel velocity
 	};
 }

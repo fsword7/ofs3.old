@@ -109,8 +109,12 @@ void CoreApp::mousePressButtonUp(float x, float y, int state)
 //	}
 }
 
-void CoreApp::mouseDialWheel(float motion)
+void CoreApp::mouseDialWheel(float motion, int state)
 {
+	Player *player = engine->getPlayer();
+//
+//	double dzoom = dy / height;
+//	player->dolly(dzoom * 5);
 }
 
 // ******** Keyboard Control Routines ********
@@ -141,43 +145,30 @@ void CoreApp::update()
 	Player *player = engine->getPlayer();
 
 	double  dt = 0.01;
-	vec3d_t pav, oav, tv;
+	vec3d_t av, tv;
 
-//	dt  = jdate->update();
-	pav = player->getPlayerAngularVelocity();
-	oav = player->getOrbitalAngularVelocity();
-	tv  = player->getTravelVelocity();
+//	dt = jdate->update();
+	av = player->getAngularVelocity();
+	tv = player->getTravelVelocity();
 
 	// Keyboard rotation and travel control
 	// X-axis rotation control
 	if (stateKey[keyPad8])
-		pav += vec3d_t(dt * keyRotationAccel, 0, 0);
+		av += vec3d_t(dt * keyRotationAccel, 0, 0);
 	if (stateKey[keyPad2])
-		pav += vec3d_t(dt * -keyRotationAccel, 0, 0);
-//	if (stateKey[keyPad8])
-//		oav += vec3d_t(dt * keyRotationAccel, 0, 0);
-//	if (stateKey[keyPad2])
-//		oav += vec3d_t(dt * -keyRotationAccel, 0, 0);
+		av += vec3d_t(dt * -keyRotationAccel, 0, 0);
 
 	// Y-axis rotation control
 	if (stateKey[keyPad4])
-		pav += vec3d_t(0, dt * keyRotationAccel, 0);
+		av += vec3d_t(0, dt * keyRotationAccel, 0);
 	if (stateKey[keyPad6])
-		pav += vec3d_t(0, dt * -keyRotationAccel, 0);
-//	if (stateKey[keyPad4])
-//		oav += vec3d_t(0, dt * keyRotationAccel, 0);
-//	if (stateKey[keyPad6])
-//		oav += vec3d_t(0, dt * -keyRotationAccel, 0);
+		av += vec3d_t(0, dt * -keyRotationAccel, 0);
 
 	// Z-axis rotation control
 	if (stateKey[keyPad7])
-		pav += vec3d_t(0, 0, dt * -keyRotationAccel);
+		av += vec3d_t(0, 0, dt * -keyRotationAccel);
 	if (stateKey[keyPad9])
-		pav += vec3d_t(0, 0, dt * keyRotationAccel);
-//	if (stateKey[keyPad7])
-//		oav += vec3d_t(0, 0, dt * -keyRotationAccel);
-//	if (stateKey[keyPad9])
-//		oav += vec3d_t(0, 0, dt * keyRotationAccel);
+		av += vec3d_t(0, 0, dt * keyRotationAccel);
 
 
 	// Travel velocity control
@@ -202,13 +193,11 @@ void CoreApp::update()
 	// Braking velocity control
 	if (stateKey[keyPad5])
 	{
-		pav *= exp(-dt * keyRotationBrake);
-//		oav *= exp(-dt * keyRotationBrake);
-		tv  *= exp(-dt * keyTravelBrake);
+		av *= exp(-dt * keyRotationBrake);
+		tv *= exp(-dt * keyTravelBrake);
 	}
 
-	player->setPlayerAngularVelocity(pav);
-	player->setOrbitalAngularVelocity(oav);
+	player->setAngularVelocity(av);
 	player->setTravelVelocity(tv);
 	engine->update(dt);
 }

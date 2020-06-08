@@ -71,6 +71,14 @@ void sdlCoreApp::display(const string &title)
 	SDL_SetWindowTitle(dWindow, title.c_str());
 }
 
+void sdlCoreApp::handleMouseWheelEvent(const SDL_MouseWheelEvent &event)
+{
+	if (event.y > 0)
+		mouseDialWheel(-1.0);
+	else if (event.y < 0)
+		mouseDialWheel(1.0);
+}
+
 void sdlCoreApp::pressKeyEvent(SDL_KeyboardEvent *key, bool down)
 {
 //	using namespace ofs;
@@ -241,6 +249,7 @@ void sdlCoreApp::run()
 				break;
 
 			case SDL_MOUSEWHEEL:
+				handleMouseWheelEvent(event.wheel);
 				break;
 
 			// Handling keyboard events

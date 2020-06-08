@@ -91,7 +91,7 @@ namespace ofs
 		void mouseMove(float x, float y, int state);
 		void mousePressButtonDown(float x, float y, int state);
 		void mousePressButtonUp(float x, float y, int state);
-		void mouseDialWheel(float motion);
+		void mouseDialWheel(float motion, int state = 0);
 
 		// Keyboard controls
 		void keyPress(keyCode code, int modifiers, bool down);
