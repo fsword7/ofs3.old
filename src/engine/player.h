@@ -28,6 +28,8 @@ namespace ofs::engine
 
 		void set(FrameType type, const Object *object, const Object *target);
 
+		const Object *getCenter() const;
+
 		vec3d_t fromUniversal(const vec3d_t &pos, double now);
 		quatd_t fromUniversal(const quatd_t &rot, double now);
 		vec3d_t toUniversal(const vec3d_t &pos, double now);
@@ -118,8 +120,9 @@ namespace ofs::engine
 		quatd_t urot = { 1.0, 0.0, 0.0, 0.0 };
 
 		// Local position { local coordinate system in reference frame )
-		vec3d_t lpos = { 0.0, 0.0, 0.0 };
-		quatd_t lrot = { 1.0, 0.0, 0.0, 0.0 };
+		vec3d_t lpos   = { 0.0, 0.0, 0.0 };
+		quatd_t lrot   = { 1.0, 0.0, 0.0, 0.0 };
+		quatd_t lorbit = { 1.0, 0.0, 0.0, 0.0 };
 
 		// Velocity control
 		vec3d_t	pav = { 0.0, 0.0, 0.0 };      // Player angular velocity

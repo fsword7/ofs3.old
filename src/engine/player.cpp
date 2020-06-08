@@ -36,6 +36,13 @@ void PlayerFrame::set(FrameType type, const Object *object, const Object *target
 	}
 }
 
+const Object *PlayerFrame::getCenter() const
+{
+	if (frame == nullptr)
+		return nullptr;
+	return frame->getCenter();
+}
+
 vec3d_t PlayerFrame::fromUniversal(const vec3d_t &pos, double now)
 {
 	if (frame == nullptr)
@@ -127,6 +134,15 @@ void Player::update(double dt)
 		lrot += lrot * pwv * (dt / 2.0);
 		lrot  = glm::normalize(lrot);
 		lpos -= lrot * tv * dt;
+
+//		if (frame.getCenter() != nullptr)
+//		{
+//			lorbit += lorbit * owv * (dt / 2.0);
+//			lorbit  = glm::normalize(lorbit);
+//
+//			lpos = glm::normalize(glm::conjugate(lorbit) * lpos) * glm::length(lpos);
+//			lrot = glm::conjugate(lorbit) * lrot;
+//		}
 	}
 
 	// Updating current universal coordinates
@@ -174,14 +190,13 @@ void Player::look(const Object &obj)
 
 void Player::orbit(quatd_t rot)
 {
-	const Object *center = nullptr;
+	const Object *center = frame.getCenter();
 	if (center == nullptr)
 		return;
 
-	double dist  = glm::length(lpos);
 	quatd_t qrot = glm::normalize(lrot * rot * glm::conjugate(lrot));
 
-	lpos = glm::normalize(glm::conjugate(qrot) * lpos) * dist;
+	lpos = glm::normalize(glm::conjugate(qrot) * lpos) * glm::length(lpos);
 	lrot = glm::conjugate(qrot) * lrot;
 
 	updateUniversal();

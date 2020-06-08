@@ -81,18 +81,31 @@ void CoreApp::update()
 		pav += vec3d_t(dt * keyRotationAccel, 0, 0);
 	if (stateKey[keyPad2])
 		pav += vec3d_t(dt * -keyRotationAccel, 0, 0);
+//	if (stateKey[keyPad8])
+//		oav += vec3d_t(dt * keyRotationAccel, 0, 0);
+//	if (stateKey[keyPad2])
+//		oav += vec3d_t(dt * -keyRotationAccel, 0, 0);
 
 	// Y-axis rotation control
 	if (stateKey[keyPad4])
 		pav += vec3d_t(0, dt * keyRotationAccel, 0);
 	if (stateKey[keyPad6])
 		pav += vec3d_t(0, dt * -keyRotationAccel, 0);
+//	if (stateKey[keyPad4])
+//		oav += vec3d_t(0, dt * keyRotationAccel, 0);
+//	if (stateKey[keyPad6])
+//		oav += vec3d_t(0, dt * -keyRotationAccel, 0);
 
 	// Z-axis rotation control
 	if (stateKey[keyPad7])
 		pav += vec3d_t(0, 0, dt * -keyRotationAccel);
 	if (stateKey[keyPad9])
 		pav += vec3d_t(0, 0, dt * keyRotationAccel);
+//	if (stateKey[keyPad7])
+//		oav += vec3d_t(0, 0, dt * -keyRotationAccel);
+//	if (stateKey[keyPad9])
+//		oav += vec3d_t(0, 0, dt * keyRotationAccel);
+
 
 	// Travel velocity control
 	// X-axis move control
@@ -117,6 +130,7 @@ void CoreApp::update()
 	if (stateKey[keyPad5])
 	{
 		pav *= exp(-dt * keyRotationBrake);
+//		oav *= exp(-dt * keyRotationBrake);
 		tv  *= exp(-dt * keyTravelBrake);
 	}
 
