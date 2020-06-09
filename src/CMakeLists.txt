@@ -8,6 +8,7 @@ set (ofs_cpp_srcs
 	main/coreapp.cpp
 	render/gl/buffer.cpp
 	render/gl/context.cpp
+	render/gl/font.cpp
 	render/gl/mesh.cpp
 	render/gl/shader.cpp
 	render/gl/stars.cpp
@@ -42,6 +43,7 @@ set (ofs_h_srcs
 	main/coreapp.h
 	render/gl/buffer.h
 	render/gl/context.h
+	render/gl/font.h
 	render/gl/mesh.h
 	render/gl/shader.h
 	render/gl/stars.h
@@ -64,6 +66,7 @@ set (ofs_h_srcs
 
 include_directories(
 	${SDL2_INCLUDE_DIRS}
+	${SDL2_IMAGE_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
 	${GLEW_INCLUDE_DIRS}
 	${FREETYPE_INCLUDE_DIRS}

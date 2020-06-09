@@ -23,6 +23,9 @@ public:
 	Context() : smgr(*this) {}
 	~Context() = default;
 
+	inline uint32_t getWidth() const { return width; }
+	inline uint32_t getHeight() const { return height; }
+
 	void init(uint32_t width, uint32_t height);
 
 	void start();
