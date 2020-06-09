@@ -9,10 +9,13 @@
 
 #include "engine/player.h"
 #include "universe/universe.h"
+#include "render/overlay.h"
 #include "render/scene.h"
 
 namespace ofs::engine
 {
+	using TextureFont = ofs::renderer::TextureFont;
+	using Overlay = ofs::renderer::Overlay;
 	using Scene = ofs::renderer::Scene;
 	using Universe = ofs::universe::Universe;
 
@@ -35,5 +38,11 @@ namespace ofs::engine
 		Player *player = nullptr;
 		Universe *universe = nullptr;
 		Scene *scene = nullptr;
+
+		// Overlay/HUD panel
+		TextureFont *titleFont = nullptr;
+		TextureFont *textFont = nullptr;
+		Overlay     *overlay = nullptr;
+		vec3d_t      lastView;
 	};
 }

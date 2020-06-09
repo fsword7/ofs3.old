@@ -20,6 +20,15 @@ void Engine::init(uint32_t width, uint32_t height)
 	universe->init();
 	scene->init(*universe, width, height);
 
+	// Initialize global parameters
+//	TerrainManager::ginit(*this);
+	TextureFont::ginit();
+
+	Context &gl = scene->getContext();
+	overlay     = new Overlay(gl);
+	titleFont   = TextureFont::load(gl, "data/fonts/OpenSans-Bold.ttf", 20);
+	textFont    = TextureFont::load(gl, "data/fonts/OpenSans-Regular.ttf", 12);
+
 	// Hacks - To be removed later
 	Object *obj = universe->find("Sol");
 	if (obj != nullptr) {

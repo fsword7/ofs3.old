@@ -14,6 +14,7 @@ set (ofs_cpp_srcs
 	render/gl/stars.cpp
 	render/gl/texture.cpp
 	render/camera.cpp
+	render/overlay.cpp
 	render/scene.cpp
 	render/starcolors.cpp
 	render/stars.cpp
@@ -49,6 +50,7 @@ set (ofs_h_srcs
 	render/gl/stars.h
 	render/gl/texture.h
 	render/camera.h
+	render/overlay.h
 	render/scene.h
 	render/starcolors.h
 	render/stars.h
